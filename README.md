@@ -27,5 +27,7 @@
 ```
 // PnP zero install로 인해 yarn install 불필요
 yarn dev (or yarn dev --turbo) // nextjs 13은 turbopack 내장으로 해당 옵션으로 터보팩 빌드를 할 수 있음
+
+yarn init-husky // commit 이벤트를 훅킹 하기 위한 husky 초기 세팅
 ```
 
