@@ -28,6 +28,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
+            ["@editorjs/checklist", "npm:1.4.0"],\
+            ["@editorjs/code", "npm:2.8.0"],\
+            ["@editorjs/delimiter", "npm:1.3.0"],\
+            ["@editorjs/editorjs", "npm:2.26.5"],\
+            ["@editorjs/header", "npm:2.7.0"],\
+            ["@editorjs/image", "npm:2.8.1"],\
+            ["@editorjs/inline-code", "npm:1.4.0"],\
+            ["@editorjs/marker", "npm:1.3.0"],\
+            ["@editorjs/nested-list", "npm:1.3.0"],\
+            ["@editorjs/paragraph", "npm:2.9.0"],\
+            ["@editorjs/table", "npm:2.2.1"],\
+            ["@editorjs/underline", "npm:1.1.0"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:c11da0eefb26a769d52c1ac30fa8f4ca6820c850b16a44deb227c7f1c73bd878c13e60cc1d445520ffbcd938aba41b85a144c3d746bd6a680a0e445214e68543#npm:14.0.0"],\
             ["@types/jest", "npm:29.4.0"],\
@@ -862,6 +874,167 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@bcoe-v8-coverage-npm-0.2.3-9e27b3c57e-850f930553.zip/node_modules/@bcoe/v8-coverage/",\
           "packageDependencies": [\
             ["@bcoe/v8-coverage", "npm:0.2.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@codexteam/icons", [\
+        ["npm:0.0.2", {\
+          "packageLocation": "./.yarn/cache/@codexteam-icons-npm-0.0.2-f95b4dcef5-7cee7d437c.zip/node_modules/@codexteam/icons/",\
+          "packageDependencies": [\
+            ["@codexteam/icons", "npm:0.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.0.4", {\
+          "packageLocation": "./.yarn/cache/@codexteam-icons-npm-0.0.4-7e26576f5a-ead8fc8ad3.zip/node_modules/@codexteam/icons/",\
+          "packageDependencies": [\
+            ["@codexteam/icons", "npm:0.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.0.5", {\
+          "packageLocation": "./.yarn/cache/@codexteam-icons-npm-0.0.5-6e551884d3-7a27857f76.zip/node_modules/@codexteam/icons/",\
+          "packageDependencies": [\
+            ["@codexteam/icons", "npm:0.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.0.6", {\
+          "packageLocation": "./.yarn/cache/@codexteam-icons-npm-0.0.6-d7aa834264-b2d4aa71d2.zip/node_modules/@codexteam/icons/",\
+          "packageDependencies": [\
+            ["@codexteam/icons", "npm:0.0.6"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.1.0", {\
+          "packageLocation": "./.yarn/cache/@codexteam-icons-npm-0.1.0-0b2e6467a8-df50a6606a.zip/node_modules/@codexteam/icons/",\
+          "packageDependencies": [\
+            ["@codexteam/icons", "npm:0.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/checklist", [\
+        ["npm:1.4.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-checklist-npm-1.4.0-446d94549b-e38ff46af5.zip/node_modules/@editorjs/checklist/",\
+          "packageDependencies": [\
+            ["@editorjs/checklist", "npm:1.4.0"],\
+            ["@codexteam/icons", "npm:0.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/code", [\
+        ["npm:2.8.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-code-npm-2.8.0-c280f1a62d-f218261798.zip/node_modules/@editorjs/code/",\
+          "packageDependencies": [\
+            ["@editorjs/code", "npm:2.8.0"],\
+            ["@codexteam/icons", "npm:0.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/delimiter", [\
+        ["npm:1.3.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-delimiter-npm-1.3.0-9b7c729474-fae437d1e9.zip/node_modules/@editorjs/delimiter/",\
+          "packageDependencies": [\
+            ["@editorjs/delimiter", "npm:1.3.0"],\
+            ["@codexteam/icons", "npm:0.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/editorjs", [\
+        ["npm:2.26.5", {\
+          "packageLocation": "./.yarn/cache/@editorjs-editorjs-npm-2.26.5-3affcf4351-899741482b.zip/node_modules/@editorjs/editorjs/",\
+          "packageDependencies": [\
+            ["@editorjs/editorjs", "npm:2.26.5"],\
+            ["@codexteam/icons", "npm:0.1.0"],\
+            ["codex-notifier", "npm:1.1.2"],\
+            ["codex-tooltip", "npm:1.0.5"],\
+            ["html-janitor", "npm:2.0.4"],\
+            ["nanoid", "npm:3.3.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/header", [\
+        ["npm:2.7.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-header-npm-2.7.0-573fbb5bc8-9b26ed4435.zip/node_modules/@editorjs/header/",\
+          "packageDependencies": [\
+            ["@editorjs/header", "npm:2.7.0"],\
+            ["@codexteam/icons", "npm:0.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/image", [\
+        ["npm:2.8.1", {\
+          "packageLocation": "./.yarn/cache/@editorjs-image-npm-2.8.1-85b711baf7-b25cca35cc.zip/node_modules/@editorjs/image/",\
+          "packageDependencies": [\
+            ["@editorjs/image", "npm:2.8.1"],\
+            ["@codexteam/icons", "npm:0.0.6"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/inline-code", [\
+        ["npm:1.4.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-inline-code-npm-1.4.0-b9ebbb8b15-364c30add9.zip/node_modules/@editorjs/inline-code/",\
+          "packageDependencies": [\
+            ["@editorjs/inline-code", "npm:1.4.0"],\
+            ["@codexteam/icons", "npm:0.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/marker", [\
+        ["npm:1.3.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-marker-npm-1.3.0-1ca2af4b28-b93bc22b92.zip/node_modules/@editorjs/marker/",\
+          "packageDependencies": [\
+            ["@editorjs/marker", "npm:1.3.0"],\
+            ["@codexteam/icons", "npm:0.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/nested-list", [\
+        ["npm:1.3.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-nested-list-npm-1.3.0-cd766219c6-aa7febc423.zip/node_modules/@editorjs/nested-list/",\
+          "packageDependencies": [\
+            ["@editorjs/nested-list", "npm:1.3.0"],\
+            ["@codexteam/icons", "npm:0.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/paragraph", [\
+        ["npm:2.9.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-paragraph-npm-2.9.0-1df54d17fb-f91acaee6d.zip/node_modules/@editorjs/paragraph/",\
+          "packageDependencies": [\
+            ["@editorjs/paragraph", "npm:2.9.0"],\
+            ["@codexteam/icons", "npm:0.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/table", [\
+        ["npm:2.2.1", {\
+          "packageLocation": "./.yarn/cache/@editorjs-table-npm-2.2.1-232aba2d28-7f03086928.zip/node_modules/@editorjs/table/",\
+          "packageDependencies": [\
+            ["@editorjs/table", "npm:2.2.1"],\
+            ["@codexteam/icons", "npm:0.0.6"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@editorjs/underline", [\
+        ["npm:1.1.0", {\
+          "packageLocation": "./.yarn/cache/@editorjs-underline-npm-1.1.0-5184f0c31d-5611b76bea.zip/node_modules/@editorjs/underline/",\
+          "packageDependencies": [\
+            ["@editorjs/underline", "npm:1.1.0"],\
+            ["@codexteam/icons", "npm:0.0.6"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2883,6 +3056,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["codex-notifier", [\
+        ["npm:1.1.2", {\
+          "packageLocation": "./.yarn/cache/codex-notifier-npm-1.1.2-893faf9b49-2130f5b1ff.zip/node_modules/codex-notifier/",\
+          "packageDependencies": [\
+            ["codex-notifier", "npm:1.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["codex-tooltip", [\
+        ["npm:1.0.5", {\
+          "packageLocation": "./.yarn/cache/codex-tooltip-npm-1.0.5-b69f9284fd-8ea91ce698.zip/node_modules/codex-tooltip/",\
+          "packageDependencies": [\
+            ["codex-tooltip", "npm:1.0.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["collect-v8-coverage", [\
         ["npm:1.0.1", {\
           "packageLocation": "./.yarn/cache/collect-v8-coverage-npm-1.0.1-39dec86bad-4efe0a1fcc.zip/node_modules/collect-v8-coverage/",\
@@ -4825,6 +5016,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["html-janitor", [\
+        ["npm:2.0.4", {\
+          "packageLocation": "./.yarn/cache/html-janitor-npm-2.0.4-c37abe5f0d-e571c8d753.zip/node_modules/html-janitor/",\
+          "packageDependencies": [\
+            ["html-janitor", "npm:2.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["http-cache-semantics", [\
         ["npm:4.1.1", {\
           "packageLocation": "./.yarn/cache/http-cache-semantics-npm-4.1.1-1120131375-83ac0bc60b.zip/node_modules/http-cache-semantics/",\
@@ -6585,6 +6785,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["mlabs-web", "workspace:."],\
+            ["@editorjs/checklist", "npm:1.4.0"],\
+            ["@editorjs/code", "npm:2.8.0"],\
+            ["@editorjs/delimiter", "npm:1.3.0"],\
+            ["@editorjs/editorjs", "npm:2.26.5"],\
+            ["@editorjs/header", "npm:2.7.0"],\
+            ["@editorjs/image", "npm:2.8.1"],\
+            ["@editorjs/inline-code", "npm:1.4.0"],\
+            ["@editorjs/marker", "npm:1.3.0"],\
+            ["@editorjs/nested-list", "npm:1.3.0"],\
+            ["@editorjs/paragraph", "npm:2.9.0"],\
+            ["@editorjs/table", "npm:2.2.1"],\
+            ["@editorjs/underline", "npm:1.1.0"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:c11da0eefb26a769d52c1ac30fa8f4ca6820c850b16a44deb227c7f1c73bd878c13e60cc1d445520ffbcd938aba41b85a144c3d746bd6a680a0e445214e68543#npm:14.0.0"],\
             ["@types/jest", "npm:29.4.0"],\
