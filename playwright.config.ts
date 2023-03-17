@@ -1,7 +1,8 @@
 import { defineConfig, devices } from "@playwright/test"
 
 /**
- * Read environment variables from file.
+ * playwright는 환경변수를 .env 파일형태로 받습니다.
+ * next.config 설정시에도 받지 않습니다. 배포 환경 구성시 참고해야합니다.
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
@@ -10,7 +11,7 @@ import { defineConfig, devices } from "@playwright/test"
  * See https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  testDir: "./tests",
+  testDir: "./e2e",
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -37,7 +38,7 @@ export default defineConfig({
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://localhost:3000',
+    baseURL: "http://localhost:3000",
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry"
@@ -69,16 +70,6 @@ export default defineConfig({
       name: "Mobile Safari",
       use: { ...devices["iPhone 12"] }
     }
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { channel: 'chrome' },
-    // },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
@@ -86,7 +77,7 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "npm run start",
+    command: "yarn dev",
     port: 3000
   }
 })
