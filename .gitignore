@@ -1,8 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-
-
-
 # dependencies
 /.pnp
 .pnp.js
@@ -48,3 +45,11 @@ next-env.d.ts
 
 # intelij
 .idea/*
+
+# yarn berry 환경에서 node_modules는 사용하지 않습니다.
+node_modules/
+
+# play-wright 로컬실행 결과
+/test-results/
+/playwright-report/
+/playwright/.cache/

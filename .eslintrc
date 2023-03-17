@@ -36,6 +36,7 @@
     }
   },
   "rules": {
+    "@typescript-eslint/prefer-enum-initializers": "error", // enum 값없는 속성 생성 방지 (https://typescript-eslint.io/rules/prefer-enum-initializers)
     "@typescript-eslint/ban-ts-comment": "warn", // ts-ignore 허용
     "jsx-a11y/label-has-associated-control": "off", // 레이블 태그에 텍스트 레이블과 관련 컨트롤이 있는지 확인 (https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/label-has-associated-control.md)
     "jsx-a11y/no-noninteractive-tabindex": "off", // Tab 키 탐색은 상호 작용할 수 있는 페이지의 요소로 제한 (https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/main/docs/rules/no-noninteractive-tabindex.md)
