@@ -7,7 +7,6 @@ module.exports = {
   mbtilabs: {
     input: {
       target: "http://52.90.6.136:8080/v3/api-docs"
-      // target: "https://dev-core.neubie.ai/docs/schema/"
     },
     output: {
       mode: "split",

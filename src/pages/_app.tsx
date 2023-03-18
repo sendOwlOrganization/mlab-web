@@ -1,7 +1,8 @@
 import "@/styles/globals.css"
 import type { AppProps } from "next/app"
 import { useState } from "react"
-import { QueryCache, QueryClient } from "react-query"
+import { Hydrate, QueryCache, QueryClient, QueryClientProvider } from "react-query"
+import { ReactQueryDevtools } from "react-query/devtools"
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryCache = new QueryCache()
@@ -18,5 +19,12 @@ export default function App({ Component, pageProps }: AppProps) {
         }
       })
   )
-  return <Component {...pageProps} />
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Hydrate state={pageProps && pageProps.dehydratedState}>
+        <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
+      </Hydrate>
+      <Component {...pageProps} />
+    </QueryClientProvider>
+  )
 }
