@@ -34,14 +34,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# use zero install
+# don't use zero install
 .yarn/*
-!.yarn/cache
 !.yarn/patches
-!.yarn/plugins
 !.yarn/releases
+!.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+.pnp.*
 
 # intelij
 .idea/*

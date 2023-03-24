@@ -17,5 +17,5 @@
   "trailingComma": "none",
   "useTabs": false,
   "vueIndentScriptAndStyle": false,
-  "disableLanguages": [],
+  "disableLanguages": []
 }
