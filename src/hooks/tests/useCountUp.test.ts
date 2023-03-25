@@ -49,5 +49,25 @@ describe("useCountUp 테스트", () => {
 
       expect(result.current).toBe(givenEnd)
     })
+
+    test(`목표 수치가 0이하면 ${seconds}초가 지나지 않아도 카운트가 0이다`, () => {
+      const { result } = renderHook(() => useCountUp(-500, givenDuration))
+
+      act(() => {
+        jest.advanceTimersByTime(givenDuration / 3)
+      })
+
+      expect(result.current).toBe(0)
+    })
+
+    test(`목표 수치가 0이하면 ${seconds}초가 지나도 카운트가 0이다`, () => {
+      const { result } = renderHook(() => useCountUp(-500, givenDuration))
+
+      act(() => {
+        jest.advanceTimersByTime(givenDuration)
+      })
+
+      expect(result.current).toBe(0)
+    })
   })
 })

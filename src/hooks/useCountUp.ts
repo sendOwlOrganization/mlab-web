@@ -20,6 +20,10 @@ const useCountUp = (end: number, duration = 1_000) => {
   const totalFrame = Math.round(duration / FRAMERATE)
 
   useEffect(() => {
+    if (end <= 0) {
+      return
+    }
+
     let currentCount = 0
 
     const counter = setInterval(() => {
