@@ -16,6 +16,7 @@
     "report": "playwright show-report",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "deploy:storybook": "chromatic",
     "gen": "rm -r src/api/generated && orval"
   },
   "husky": {
@@ -63,6 +64,7 @@
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",
     "babel-loader": "^8.3.0",
+    "chromatic": "^6.17.2",
     "eslint": "^8.35.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-next": "^13.2.3",
