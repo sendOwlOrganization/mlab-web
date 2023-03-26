@@ -10,5 +10,5 @@ const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Example = Template.bind({});
 Example.args = {
-  children: "테스트 버튼 2"
+  children: "테스트 버튼 1"
 };
