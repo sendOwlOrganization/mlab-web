@@ -16,7 +16,7 @@
     "report": "playwright show-report",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "deploy:storybook": "chromatic",
+    "chromatic": "chromatic --exit-zero-on-changes",
     "gen": "rm -r src/api/generated && orval"
   },
   "husky": {
