@@ -34,7 +34,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "C:\\github\\mlab-web\\.next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
