@@ -10,6 +10,7 @@ describe("useCountUp 테스트", () => {
 
   afterEach(() => {
     jest.useRealTimers()
+    jest.restoreAllMocks()
   })
 
   describe.each([1_000, 5_000])("duration이 %dms 일 때", (givenDuration) => {
@@ -68,6 +69,18 @@ describe("useCountUp 테스트", () => {
       })
 
       expect(result.current).toBe(0)
+    })
+
+    test("시간이 지나기전에 언마운트되면 타이머가 클리어된다", () => {
+      const clearIntervalSpy = jest.spyOn(window, "clearInterval")
+      const { unmount } = renderHook(() => useCountUp(1000, givenDuration))
+      act(() => {
+        jest.advanceTimersByTime(givenDuration / 2)
+      })
+
+      unmount()
+
+      expect(clearIntervalSpy).toHaveBeenCalledTimes(1)
     })
   })
 })
