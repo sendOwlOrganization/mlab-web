@@ -6,6 +6,6 @@
  */
 
 export interface LoginReq {
-  email: string
-  password: string
+  email: string;
+  password: string;
 }

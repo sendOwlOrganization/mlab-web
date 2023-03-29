@@ -4,8 +4,8 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { BalanceRes } from "./balanceRes"
+import type { BalanceRes } from "./balanceRes";
 
 export interface GetAllBalanceRes {
-  balances?: BalanceRes[]
+  balances?: BalanceRes[];
 }

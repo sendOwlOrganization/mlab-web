@@ -4,8 +4,8 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { UpdateReq } from "./updateReq"
+import type { UpdateReq } from "./updateReq";
 
 export type UpdateCommentParams = {
-  updateReq: UpdateReq
-}
+  updateReq: UpdateReq;
+};

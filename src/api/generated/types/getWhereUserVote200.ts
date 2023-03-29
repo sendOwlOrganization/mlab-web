@@ -5,4 +5,4 @@
  * OpenAPI spec version: v0
  */
 
-export type GetWhereUserVote200 = { [key: string]: any }
+export type GetWhereUserVote200 = { [key: string]: any };

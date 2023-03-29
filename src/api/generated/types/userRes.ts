@@ -4,13 +4,13 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { UserResGender } from "./userResGender"
+import type { UserResGender } from "./userResGender";
 
 export interface UserRes {
-  id?: number
-  nickName?: string
-  mbti?: string
-  gender?: UserResGender
-  age?: number
-  email?: string
+  id?: number;
+  nickName?: string;
+  mbti?: string;
+  gender?: UserResGender;
+  age?: number;
+  email?: string;
 }

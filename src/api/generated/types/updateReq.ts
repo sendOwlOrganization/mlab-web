@@ -7,7 +7,7 @@
 
 export interface UpdateReq {
   /** 댓글 id */
-  commentId?: number
+  commentId?: number;
   /** 수정할 댓글 내용 */
-  content?: string
+  content?: string;
 }

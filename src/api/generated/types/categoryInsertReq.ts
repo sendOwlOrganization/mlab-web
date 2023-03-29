@@ -7,5 +7,5 @@
 
 export interface CategoryInsertReq {
   /** 카테고리 이름 */
-  name: string
+  name: string;
 }

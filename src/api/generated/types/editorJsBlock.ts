@@ -4,10 +4,10 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { EditorJsData } from "./editorJsData"
+import type { EditorJsData } from "./editorJsData";
 
 export interface EditorJsBlock {
-  id?: string
-  type?: string
-  data?: EditorJsData
+  id?: string;
+  type?: string;
+  data?: EditorJsData;
 }
