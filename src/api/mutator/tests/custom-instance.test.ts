@@ -46,5 +46,23 @@ describe("custom-instance 테스트", () => {
 
       await getUserSelf();
     });
+
+    test("주입된 토큰이 만료되어 401을 반환하면 토큰을 재발급 받는다", async () => {
+      server.use(
+        rest.get("/api/users/me", (req, res, ctx) => {
+          const isValidToken = req.headers.get("Authorization") === "Bearer refreshedAccessTokenForTest";
+          return isValidToken ? res(ctx.status(200)) : res(ctx.status(401));
+        }),
+        // TODO: 임시용, 백엔드 작업 필요
+        rest.get("/api/users/refresh", (req, res, ctx) => {
+          return res(ctx.status(200), ctx.set("access-token", "refreshedAccessTokenForTest"));
+        })
+      );
+      server.listen();
+      await login({ email: "test", password: "1234" });
+
+      await expect(getUserSelf()).rejects.toThrow();
+      await expect(getUserSelf()).resolves;
+    });
   });
 });

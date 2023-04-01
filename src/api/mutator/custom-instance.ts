@@ -6,8 +6,13 @@ export const AXIOS_INSTANCE = Axios.create({ baseURL: process.env.NEXT_PUBLIC_AP
  * 로그인 후 access-token이 있으면 저장
  */
 AXIOS_INSTANCE.interceptors.response.use((response) => {
-  if (response.request.responseURL.includes("/api/users/login") && response.headers["access-token"]) {
-    AuthorizationUtil.saveToken(response.headers["access-token"]);
+  const isAccessTokenUrl =
+    response.request.responseURL.includes("/api/users/login") ||
+    response.request.responseURL.includes("/api/users/refresh");
+  const accessToken = response.headers["access-token"];
+
+  if (isAccessTokenUrl && Boolean(accessToken)) {
+    AuthorizationUtil.saveToken(accessToken);
   }
   return response;
 });
@@ -25,7 +30,7 @@ AXIOS_INSTANCE.interceptors.request.use((config) => {
 });
 
 // add a second `options` argument here if you want to pass extra options to each generated query
-export const customInstance = <T>(config: AxiosRequestConfig, options?: AxiosRequestConfig): Promise<T> => {
+export const customInstance = async <T>(config: AxiosRequestConfig, options?: AxiosRequestConfig): Promise<T> => {
   // eslint-disable-next-line import/no-named-as-default-member
   const source = Axios.CancelToken.source();
 
@@ -35,7 +40,14 @@ export const customInstance = <T>(config: AxiosRequestConfig, options?: AxiosReq
     cancelToken: source.token
   };
 
-  return AXIOS_INSTANCE(axiosConfig).then(({ data }) => data);
+  try {
+    const { data } = await AXIOS_INSTANCE(axiosConfig);
+    return data;
+  } catch (reason) {
+    // TODO: 임시용, 백엔드 작업 필요
+    await customInstance({ url: "/api/users/refresh", method: "get" });
+    throw reason;
+  }
 };
 
 // In some case with react-query and swr you want to be able to override the return error type so you can also do it here like this
