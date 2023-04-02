@@ -45,7 +45,9 @@ export const customInstance = async <T>(config: AxiosRequestConfig, options?: Ax
     return data;
   } catch (reason) {
     // TODO: 임시용, 백엔드 작업 필요
-    await customInstance({ url: "/api/users/refresh", method: "get" });
+    if (Boolean(AuthorizationUtil.getToken()) && AuthorizationUtil.isAuthorizationRequired(config.url, config.method)) {
+      await customInstance({ url: "/api/users/refresh", method: "get" });
+    }
     throw reason;
   }
 };

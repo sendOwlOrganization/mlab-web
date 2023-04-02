@@ -47,22 +47,37 @@ describe("custom-instance 테스트", () => {
       await getUserSelf();
     });
 
-    test("주입된 토큰이 만료되어 401을 반환하면 토큰을 재발급 받는다", async () => {
-      server.use(
-        rest.get("/api/users/me", (req, res, ctx) => {
-          const isValidToken = req.headers.get("Authorization") === "Bearer refreshedAccessTokenForTest";
-          return isValidToken ? res(ctx.status(200)) : res(ctx.status(401));
-        }),
-        // TODO: 임시용, 백엔드 작업 필요
-        rest.get("/api/users/refresh", (req, res, ctx) => {
-          return res(ctx.status(200), ctx.set("access-token", "refreshedAccessTokenForTest"));
-        })
-      );
-      server.listen();
-      await login({ email: "test", password: "1234" });
+    describe("토큰이 만료되어 401을 반환했을 때", () => {
+      test("토큰을 재발급 받는다", async () => {
+        server.use(
+          rest.get("/api/users/me", (req, res, ctx) => {
+            const isValidToken = req.headers.get("Authorization") === "Bearer refreshedAccessTokenForTest";
+            return isValidToken ? res(ctx.status(200)) : res(ctx.status(401));
+          }),
+          // TODO: 임시용, 백엔드 작업 필요
+          rest.get("/api/users/refresh", (req, res, ctx) => {
+            return res(ctx.status(200), ctx.set("access-token", "refreshedAccessTokenForTest"));
+          })
+        );
+        server.listen();
+        await login({ email: "test", password: "1234" });
 
-      await expect(getUserSelf()).rejects.toThrow();
-      await expect(getUserSelf()).resolves;
+        await expect(getUserSelf()).rejects.toThrow();
+        await expect(getUserSelf()).resolves;
+      });
+
+      test("토큰이 필요하지 않은 api면 재발급 요청을 하지 않는다", async () => {
+        server.use(
+          rest.get("/api/balances", (req, res, ctx) => res(ctx.status(200))),
+          rest.get("/api/users/refresh", () => {
+            throw new Error("요청되면 안됨");
+          })
+        );
+        server.listen();
+        await login({ email: "test", password: "1234" });
+
+        await getAllBalance();
+      });
     });
   });
 });
