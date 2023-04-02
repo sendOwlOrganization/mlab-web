@@ -1,5 +1,4 @@
-import { getUserSelf, login } from "@/api/generated/hooks";
-import { AuthorizationUtil } from "@/utils/AuthorizationUtil";
+import { getAllBalance, getUserSelf, login } from "@/api/generated/hooks";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 
@@ -12,6 +11,7 @@ describe("custom-instance 테스트", () => {
 
   afterEach(() => {
     server.resetHandlers();
+    jest.restoreAllMocks();
   });
 
   afterAll(() => {
@@ -29,9 +29,10 @@ describe("custom-instance 테스트", () => {
 
     test("토큰을 저장한다", async () => {
       server.listen();
+      const saveTokenSpy = jest.spyOn(Storage.prototype, "setItem");
       await login({ email: "test", password: "1234" });
 
-      expect(AuthorizationUtil.getToken()).toBe("accessTokenForTest");
+      expect(saveTokenSpy).toHaveBeenCalledWith(expect.anything(), "accessTokenForTest");
     });
 
     test("토큰이 필요한 api 헤더에 토큰을 주입해야한다", async () => {
