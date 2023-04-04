@@ -6,6 +6,7 @@ import { useProfile } from "@/store/useProfile";
 import { AuthorizationUtil } from "@/utils/AuthorizationUtil";
 import { ReactNode, useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 import { RecoilRoot } from "recoil";
 
 const CACHE_TIME = 29 * 60 * 1_000;
@@ -44,6 +45,9 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         <LoginProvider>{children}</LoginProvider>
+        {process.env.NODE_ENV === "development" && (
+          <ReactQueryDevtools initialIsOpen={false} position={"bottom-right"} />
+        )}
       </QueryClientProvider>
     </RecoilRoot>
   );
