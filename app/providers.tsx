@@ -30,6 +30,7 @@ const LoginProvider = ({ children }: { children: ReactNode }) => {
         .then((user) => updateProfile(user))
         .catch(() => logout());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return <>{children}</>;
