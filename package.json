@@ -16,7 +16,10 @@
     "report": "playwright show-report",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "gen": "rm -r src/api/generated && orval"
+    "gen": "rm -r src/api/generated && orval",
+    "tt:global": "npx token-transformer tokens.json ./src/tokens/global.json global",
+    "tt:light": "npx token-transformer tokens.json ./src/tokens/light.json light",
+    "tt:dark": "npx token-transformer tokens.json ./src/tokens/dark.json dark"
   },
   "husky": {
     "hooks": {
