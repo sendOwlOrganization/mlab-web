@@ -1,25 +1,24 @@
 "use client";
 
-import { customInstance } from "@/api/mutator/custom-instance";
+import { useGetAccessToken } from "@/api/generated/hooks";
 import { AuthorizationUtil } from "@/utils/AuthorizationUtil";
 import { ReactNode, useState } from "react";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { RecoilRoot } from "recoil";
 
 const CACHE_TIME = 29 * 60 * 1_000;
 
 const LoginProvider = ({ children }: { children: ReactNode }) => {
-  useQuery({
-    // TODO: 임시용, 백엔드 작업 필요
-    queryFn: () => customInstance({ method: "get", url: "/api/users/refresh" }),
-    queryKey: ["refresh"],
-    cacheTime: CACHE_TIME,
-    staleTime: CACHE_TIME,
-    refetchInterval: CACHE_TIME,
-    refetchIntervalInBackground: true,
-    enabled: Boolean(AuthorizationUtil.getToken()),
-    onError: () => AuthorizationUtil.saveToken("")
+  useGetAccessToken({
+    query: {
+      cacheTime: CACHE_TIME,
+      staleTime: CACHE_TIME,
+      refetchInterval: CACHE_TIME,
+      refetchIntervalInBackground: true,
+      enabled: Boolean(AuthorizationUtil.getToken()),
+      onError: () => AuthorizationUtil.saveToken("")
+    }
   });
 
   return <>{children}</>;
