@@ -4,6 +4,7 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
+import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 import type {
   MutationFunction,
   QueryFunction,
@@ -14,9 +15,6 @@ import type {
   UseQueryOptions,
   UseQueryResult
 } from "react-query";
-import { useInfiniteQuery, useMutation, useQuery } from "react-query";
-import type { ErrorType } from "../mutator/custom-instance";
-import { customInstance } from "../mutator/custom-instance";
 import type {
   AlarmReq,
   AlarmUdtReq,
@@ -49,6 +47,7 @@ import type {
   DeleteBalance200,
   DeleteCategory200,
   DeleteComment200,
+  GetAccessToken200,
   GetAllBalanceRes,
   GetCommentList1200,
   GetCommentList1Params,
@@ -83,6 +82,8 @@ import type {
   VoteBalanceGame200,
   VoteBalanceReq
 } from "./types";
+import { customInstance } from "../mutator/custom-instance";
+import type { ErrorType } from "../mutator/custom-instance";
 
 // eslint-disable-next-line
 type SecondParameter<T extends (...args: any) => any> = T extends (config: any, args: infer P) => any ? P : never;
@@ -1535,6 +1536,72 @@ export const useGetUserSelf = <TData = Awaited<ReturnType<typeof getUserSelf>>, 
 };
 
 /**
+ * 사용자가 refreshToken 을 이용하여 accessToken을 다시 받고 싶을때 사용한다.
+ * @summary AccessToken 재발급
+ */
+export const getAccessToken = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
+  return customInstance<GetAccessToken200>({ url: `/api/users/access-token`, method: "get", signal }, options);
+};
+
+export const getGetAccessTokenQueryKey = () => [`/api/users/access-token`];
+
+export type GetAccessTokenInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getAccessToken>>>;
+export type GetAccessTokenInfiniteQueryError = ErrorType<unknown>;
+
+export const useGetAccessTokenInfinite = <
+  TData = Awaited<ReturnType<typeof getAccessToken>>,
+  TError = ErrorType<unknown>
+>(options?: {
+  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getAccessToken>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAccessTokenQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAccessToken>>> = ({ signal }) =>
+    getAccessToken(requestOptions, signal);
+
+  const query = useInfiniteQuery<Awaited<ReturnType<typeof getAccessToken>>, TError, TData>({
+    queryKey,
+    queryFn,
+    ...queryOptions
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryKey;
+
+  return query;
+};
+
+export type GetAccessTokenQueryResult = NonNullable<Awaited<ReturnType<typeof getAccessToken>>>;
+export type GetAccessTokenQueryError = ErrorType<unknown>;
+
+export const useGetAccessToken = <
+  TData = Awaited<ReturnType<typeof getAccessToken>>,
+  TError = ErrorType<unknown>
+>(options?: {
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getAccessToken>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAccessTokenQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAccessToken>>> = ({ signal }) =>
+    getAccessToken(requestOptions, signal);
+
+  const query = useQuery<Awaited<ReturnType<typeof getAccessToken>>, TError, TData>({
+    queryKey,
+    queryFn,
+    ...queryOptions
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryKey;
+
+  return query;
+};
+
+/**
  * 원하는 쿼리, 분류를 통해 검색한다.http://localhost:8080/api/search?page=0&size=10&sort=id,DESC&query=sendowl&type=title
  * @summary 검색 조회
  */
@@ -1824,8 +1891,8 @@ export const useGetCommentList1 = <TData = Awaited<ReturnType<typeof getCommentL
 };
 
 /**
- * 카테고리의 카운트(인기도)순으로 반환한다. 조인을 하기 때문에 일반 리스트 반환보다 조금 느림
- * @summary 카테고리의 카운트(인기도)순으로 조회
+ * 카테고리의 카운트(인기도-게시글개수)순으로 반환한다. 조인을 하기 때문에 일반 리스트 반환보다 조금 느림
+ * @summary 카테고리의 카운트(인기도-게시글개수)순으로 조회
  */
 export const categoriesCount = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
   return customInstance<CategoriesCount200>({ url: `/api/categories/popular`, method: "get", signal }, options);

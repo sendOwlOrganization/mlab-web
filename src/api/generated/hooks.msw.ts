@@ -152,6 +152,8 @@ export const getGetUserSelfMock = () => ({
   introduction: faker.helpers.arrayElement([faker.random.word(), undefined])
 });
 
+export const getGetAccessTokenMock = () => ({});
+
 export const getBoardsMock = () => ({
   boards: faker.helpers.arrayElement([
     Array.from({ length: faker.datatype.number({ min: 1, max: 10 }) }, (_, i) => i + 1).map(() => ({
@@ -328,6 +330,9 @@ export const getOpenAPIDefinitionMSW = () => [
   }),
   rest.get("*/api/users/me", (_req, res, ctx) => {
     return res(ctx.delay(1000), ctx.status(200, "Mocked status"), ctx.json(getGetUserSelfMock()));
+  }),
+  rest.get("*/api/users/access-token", (_req, res, ctx) => {
+    return res(ctx.delay(1000), ctx.status(200, "Mocked status"), ctx.json(getGetAccessTokenMock()));
   }),
   rest.get("*/api/search", (_req, res, ctx) => {
     return res(ctx.delay(1000), ctx.status(200, "Mocked status"), ctx.json(getBoardsMock()));

@@ -34,6 +34,7 @@ export * from "./deleteComment200";
 export * from "./editorJsBlock";
 export * from "./editorJsContent";
 export * from "./editorJsData";
+export * from "./getAccessToken200";
 export * from "./getAllBalanceRes";
 export * from "./getCommentList1200";
 export * from "./getCommentList1Params";

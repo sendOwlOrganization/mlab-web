@@ -16,7 +16,7 @@
     "report": "playwright show-report",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "gen": "rm -r src/api/generated && orval"
+    "gen": "rm -rf src/api/generated && orval"
   },
   "husky": {
     "hooks": {
