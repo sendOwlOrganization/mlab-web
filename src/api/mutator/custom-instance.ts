@@ -1,3 +1,4 @@
+import { getAccessToken } from "@/api/generated/hooks";
 import { AuthorizationUtil } from "@/utils/AuthorizationUtil";
 import Axios, { AxiosError, AxiosRequestConfig } from "axios";
 
@@ -6,14 +7,13 @@ export const AXIOS_INSTANCE = Axios.create({ baseURL: process.env.NEXT_PUBLIC_AP
  * 로그인 후 access-token이 있으면 저장
  */
 AXIOS_INSTANCE.interceptors.response.use((response) => {
-  const isAccessTokenUrl =
-    response.request.responseURL.includes("/api/users/login") ||
-    response.request.responseURL.includes("/api/users/refresh");
+  const isAccessTokenUrl = AuthorizationUtil.isAccessTokenUrl(response.config.url);
   const accessToken = response.headers["access-token"];
 
   if (isAccessTokenUrl && Boolean(accessToken)) {
     AuthorizationUtil.saveToken(accessToken);
   }
+
   return response;
 });
 /**
@@ -44,9 +44,8 @@ export const customInstance = async <T>(config: AxiosRequestConfig, options?: Ax
     const { data } = await AXIOS_INSTANCE(axiosConfig);
     return data;
   } catch (reason) {
-    // TODO: 임시용, 백엔드 작업 필요
     if (Boolean(AuthorizationUtil.getToken()) && AuthorizationUtil.isAuthorizationRequired(config.url, config.method)) {
-      await customInstance({ url: "/api/users/refresh", method: "get" });
+      await getAccessToken();
     }
     throw reason;
   }

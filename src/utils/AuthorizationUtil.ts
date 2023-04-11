@@ -1,6 +1,8 @@
 export class AuthorizationUtil {
   private static LOCALSTORAGE_KEY = "mlabToken";
 
+  static readonly ACCESS_TOKEN_API_URLS = ["/api/users/login", "/api/users/access-token"];
+
   /**
    * 인증이 필요한 API URL, Method 목록
    */
@@ -11,6 +13,7 @@ export class AuthorizationUtil {
     ["/api/blame"]: ["POST"],
     ["/api/users/set-profile"]: ["POST"],
     ["/api/users/me"]: ["GET"],
+    ["/api/users/access-token"]: ["GET"],
     ["/api/like/comment"]: ["POST", "DELETE"],
     ["/api/like/board"]: ["POST", "DELETE"],
     ["/api/balances/vote"]: ["POST"]
@@ -24,6 +27,10 @@ export class AuthorizationUtil {
     return Object.entries(AuthorizationUtil.AUTH_REQUIRED_API_URLS).some(
       ([authRequiredUrl, methods]) => url.includes(authRequiredUrl) && methods.includes(method.toUpperCase())
     );
+  };
+
+  static isAccessTokenUrl = (url?: string) => {
+    return AuthorizationUtil.ACCESS_TOKEN_API_URLS.some((accessTokenUrl) => url?.includes(accessTokenUrl));
   };
 
   static saveToken = (token: string) => {

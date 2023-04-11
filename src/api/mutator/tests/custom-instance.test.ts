@@ -64,8 +64,7 @@ describe("custom-instance 테스트", () => {
             const isValidToken = req.headers.get("Authorization") === "Bearer refreshedAccessTokenForTest";
             return isValidToken ? res(ctx.status(200)) : res(ctx.status(401));
           }),
-          // TODO: 임시용, 백엔드 작업 필요
-          rest.get("/api/users/refresh", (req, res, ctx) => {
+          rest.get("/api/users/access-token", (req, res, ctx) => {
             return res(ctx.status(200), ctx.set("access-token", "refreshedAccessTokenForTest"));
           })
         );
@@ -81,7 +80,7 @@ describe("custom-instance 테스트", () => {
         // arrange
         server.use(
           rest.get("/api/balances", (req, res, ctx) => res(ctx.status(200))),
-          rest.get("/api/users/refresh", () => {
+          rest.get("/api/users/access-token", () => {
             throw new Error("요청되면 안됨");
           })
         );
