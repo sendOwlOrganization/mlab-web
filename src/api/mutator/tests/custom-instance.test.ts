@@ -1,4 +1,5 @@
 import { getAllBalance, getUserSelf, login } from "@/api/generated/hooks";
+import { customInstance } from "@/api/mutator/custom-instance";
 import { AuthorizationUtil } from "@/utils/AuthorizationUtil";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
@@ -89,6 +90,56 @@ describe("custom-instance 테스트", () => {
 
         // assert
         await getAllBalance();
+      });
+    });
+
+    describe.each(AuthorizationUtil.ACCESS_TOKEN_API_URLS)("`%s`을 여러번 요청했을 때", (accessTokenApiUrl) => {
+      const getAccessTokenSpy = jest.fn();
+      const getAccessToken = () => {
+        getAccessTokenSpy();
+        return customInstance({ url: accessTokenApiUrl, method: "get" });
+      };
+
+      test("이미 실행중인 request가 있으면 동시에 요청해도 request가 1개만 날라간다", async () => {
+        // arrange
+        const accessTokenRequestSpy = jest.fn();
+        server.use(
+          rest.get(accessTokenApiUrl, async (req, res, ctx) => {
+            accessTokenRequestSpy();
+            return res(ctx.status(200));
+          })
+        );
+        server.listen();
+
+        // act
+        void getAccessToken();
+        void getAccessToken();
+        await Promise.all([getAccessToken(), getAccessToken(), getAccessToken()]);
+
+        // assert
+        expect(getAccessTokenSpy).toHaveBeenCalledTimes(5);
+        expect(accessTokenRequestSpy).toHaveBeenCalledTimes(1);
+      });
+
+      test("실행중인 request가 없으면 request들을 모두 호출 한다", async () => {
+        // arrange
+        const accessTokenRequestSpy = jest.fn();
+        server.use(
+          rest.get(accessTokenApiUrl, async (req, res, ctx) => {
+            // await new Promise((resolve) => setTimeout(resolve, 0));
+            accessTokenRequestSpy();
+            return res(ctx.status(200));
+          })
+        );
+        server.listen();
+        await getAccessToken();
+
+        // act
+        await getAccessToken();
+
+        // assert
+        expect(getAccessTokenSpy).toHaveBeenCalledTimes(2);
+        expect(accessTokenRequestSpy).toHaveBeenCalledTimes(2);
       });
     });
   });

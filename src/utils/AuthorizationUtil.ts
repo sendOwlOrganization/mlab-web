@@ -1,7 +1,9 @@
+export type AccessTokenApiUrl = (typeof AuthorizationUtil.ACCESS_TOKEN_API_URLS)[number];
+
 export class AuthorizationUtil {
   private static LOCALSTORAGE_KEY = "mlabToken";
 
-  static readonly ACCESS_TOKEN_API_URLS = ["/api/users/login", "/api/users/access-token"];
+  static readonly ACCESS_TOKEN_API_URLS = ["/api/users/login", "/api/users/access-token"] as const;
 
   /**
    * 인증이 필요한 API URL, Method 목록
@@ -29,7 +31,7 @@ export class AuthorizationUtil {
     );
   };
 
-  static isAccessTokenUrl = (url?: string) => {
+  static isAccessTokenUrl = (url?: string): url is AccessTokenApiUrl => {
     return AuthorizationUtil.ACCESS_TOKEN_API_URLS.some((accessTokenUrl) => url?.includes(accessTokenUrl));
   };
 

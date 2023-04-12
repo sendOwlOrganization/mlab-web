@@ -1,6 +1,11 @@
 import { getAccessToken } from "@/api/generated/hooks";
-import { AuthorizationUtil } from "@/utils/AuthorizationUtil";
-import Axios, { AxiosError, AxiosRequestConfig } from "axios";
+import { AccessTokenApiUrl, AuthorizationUtil } from "@/utils/AuthorizationUtil";
+import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+
+/**
+ * 실행중인 request 를 저장하는 map
+ */
+const pendingRequests = new Map<AccessTokenApiUrl, Promise<AxiosResponse>>();
 
 export const AXIOS_INSTANCE = Axios.create({ baseURL: process.env.NEXT_PUBLIC_API_URL }); // use your own URL here or environment variable
 /**
@@ -41,6 +46,17 @@ export const customInstance = async <T>(config: AxiosRequestConfig, options?: Ax
   };
 
   try {
+    // access-token api 는 race 처리
+    if (AuthorizationUtil.isAccessTokenUrl(config.url)) {
+      const pendingRequest = pendingRequests.get(config.url);
+      if (pendingRequest) {
+        return (await pendingRequest).data;
+      }
+      const request = AXIOS_INSTANCE(axiosConfig);
+      pendingRequests.set(config.url, request);
+      return (await request).data;
+    }
+
     const { data } = await AXIOS_INSTANCE(axiosConfig);
     return data;
   } catch (reason) {
@@ -48,6 +64,10 @@ export const customInstance = async <T>(config: AxiosRequestConfig, options?: Ax
       await getAccessToken();
     }
     throw reason;
+  } finally {
+    if (AuthorizationUtil.isAccessTokenUrl(config.url)) {
+      pendingRequests.delete(config.url);
+    }
   }
 };
 
