@@ -61,12 +61,14 @@ export const customInstance = async <T>(config: AxiosRequestConfig, options?: Ax
     return data;
   } catch (reason) {
     const isUnauthorized = reason instanceof AxiosError && reason.response?.status === 401;
-    if (
-      isUnauthorized &&
-      Boolean(AuthorizationUtil.getToken()) &&
-      AuthorizationUtil.isAuthorizationRequired(config.url, config.method)
-    ) {
-      await getAccessToken();
+    if (isUnauthorized) {
+      if (config.url?.includes("/api/users/access-token")) {
+        // 로그아웃 처리
+        AuthorizationUtil.saveToken("");
+      }
+      if (AuthorizationUtil.getToken() && AuthorizationUtil.isAuthorizationRequired(config.url, config.method)) {
+        await getAccessToken();
+      }
     }
     throw reason;
   } finally {

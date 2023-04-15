@@ -88,6 +88,21 @@ describe("custom-instance 테스트", () => {
         // assert
         await getAllBalance();
       });
+
+      test("토큰 재발급마저 401을 반환 하면 로그아웃 처리된다", async () => {
+        // arrange
+        server.use(
+          rest.get("/api/users/me", (req, res, ctx) => res(ctx.status(401))),
+          rest.get("/api/users/access-token", (req, res, ctx) => res(ctx.status(401)))
+        );
+        server.listen();
+        const saveTokenSpy = jest.spyOn(AuthorizationUtil, "saveToken");
+        await login({ email: "test", password: "1234" });
+
+        // assert
+        await expect(getUserSelf()).rejects.toThrowError(/401/);
+        expect(saveTokenSpy).toHaveBeenCalledWith("");
+      });
     });
 
     describe.each(AuthorizationUtil.ACCESS_TOKEN_API_URLS)("`%s`을 여러번 요청했을 때", (accessTokenApiUrl) => {
