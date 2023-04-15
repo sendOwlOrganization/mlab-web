@@ -60,7 +60,12 @@ export const customInstance = async <T>(config: AxiosRequestConfig, options?: Ax
     const { data } = await AXIOS_INSTANCE(axiosConfig);
     return data;
   } catch (reason) {
-    if (Boolean(AuthorizationUtil.getToken()) && AuthorizationUtil.isAuthorizationRequired(config.url, config.method)) {
+    const isUnauthorized = reason instanceof AxiosError && reason.response?.status === 401;
+    if (
+      isUnauthorized &&
+      Boolean(AuthorizationUtil.getToken()) &&
+      AuthorizationUtil.isAuthorizationRequired(config.url, config.method)
+    ) {
       await getAccessToken();
     }
     throw reason;

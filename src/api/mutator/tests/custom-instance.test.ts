@@ -2,21 +2,18 @@ import { getAllBalance, getUserSelf, login } from "@/api/generated/hooks";
 import { customInstance } from "@/api/mutator/custom-instance";
 import { AuthorizationUtil } from "@/utils/AuthorizationUtil";
 import { rest } from "msw";
-import { setupServer } from "msw/node";
+import { SetupServer, setupServer } from "msw/node";
 
 describe("custom-instance 테스트", () => {
-  const server = setupServer();
+  let server: SetupServer;
 
   beforeEach(() => {
+    server = setupServer();
     AuthorizationUtil.saveToken("");
   });
 
   afterEach(() => {
     server.resetHandlers();
-    jest.restoreAllMocks();
-  });
-
-  afterAll(() => {
     server.close();
   });
 
@@ -73,7 +70,7 @@ describe("custom-instance 테스트", () => {
         await login({ email: "test", password: "1234" });
 
         // assert
-        await expect(getUserSelf()).rejects.toThrow();
+        await expect(getUserSelf()).rejects.toThrowError(/401/);
         await expect(getUserSelf()).resolves;
       });
 
