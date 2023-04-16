@@ -7,6 +7,9 @@ import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
  */
 const pendingRequests = new Map<AccessTokenApiUrl, Promise<AxiosResponse>>();
 
+const refreshInterval = 29 * 60 * 1_000;
+let refreshTokenTimeoutId = 0;
+
 export const AXIOS_INSTANCE = Axios.create({ baseURL: process.env.NEXT_PUBLIC_API_URL }); // use your own URL here or environment variable
 /**
  * 로그인 후 access-token이 있으면 저장
@@ -15,7 +18,22 @@ AXIOS_INSTANCE.interceptors.response.use((response) => {
   const isAccessTokenUrl = AuthorizationUtil.isAccessTokenUrl(response.config.url);
   const accessToken = response.headers["access-token"];
 
+  // 29분마다 access-token을 재발급 로직 실행
   if (isAccessTokenUrl && Boolean(accessToken)) {
+    if (refreshTokenTimeoutId !== 0) {
+      clearTimeout(refreshTokenTimeoutId);
+      refreshTokenTimeoutId = 0;
+    }
+    const requestAccessToken = () => {
+      getAccessToken()
+        .then(() => {
+          refreshTokenTimeoutId = setTimeout(requestAccessToken, refreshInterval) as unknown as number;
+        })
+        .catch(() => {
+          refreshTokenTimeoutId = 0;
+        });
+    };
+    refreshTokenTimeoutId = setTimeout(requestAccessToken, refreshInterval) as unknown as number;
     AuthorizationUtil.saveToken(accessToken);
   }
 

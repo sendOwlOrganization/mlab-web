@@ -4,6 +4,12 @@ import { AuthorizationUtil } from "@/utils/AuthorizationUtil";
 import { rest } from "msw";
 import { SetupServer, setupServer } from "msw/node";
 
+const flushPromise = async () => {
+  jest.useRealTimers();
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  jest.useFakeTimers();
+};
+
 describe("custom-instance 테스트", () => {
   let server: SetupServer;
 
@@ -52,6 +58,30 @@ describe("custom-instance 테스트", () => {
 
       // act
       await getUserSelf();
+    });
+
+    test("29분마다 토큰 재발급 요청을 보낸다", async () => {
+      // arrange
+      const requestAccessTokenSpy = jest.fn();
+      server.use(
+        rest.get("/api/users/access-token", (req, res, ctx) => {
+          requestAccessTokenSpy();
+          return res(ctx.status(200), ctx.set("access-token", "refreshedAccessTokenForTest"));
+        })
+      );
+      server.listen();
+      jest.useFakeTimers();
+      await login({ email: "test", password: "1234" });
+      const saveTokenSpy = jest.spyOn(AuthorizationUtil, "saveToken");
+
+      // act
+      jest.advanceTimersByTime(29 * 60 * 1_000);
+
+      // assert
+      await flushPromise();
+      expect(requestAccessTokenSpy).toHaveBeenCalledTimes(1);
+      expect(saveTokenSpy).toHaveBeenCalledWith("refreshedAccessTokenForTest");
+      jest.useRealTimers();
     });
 
     describe("토큰이 만료되어 401을 반환했을 때", () => {
