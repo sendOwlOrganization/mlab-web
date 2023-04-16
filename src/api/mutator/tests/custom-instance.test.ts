@@ -135,7 +135,7 @@ describe("custom-instance 테스트", () => {
       });
     });
 
-    describe.each(AuthorizationUtil.ACCESS_TOKEN_API_URLS)("`%s`을 여러번 요청했을 때", (accessTokenApiUrl) => {
+    describe.each(AuthorizationUtil.accessTokenApiUrls)("`%s`을 여러번 요청했을 때", (accessTokenApiUrl) => {
       const getAccessTokenSpy = jest.fn();
       const getAccessToken = () => {
         getAccessTokenSpy();

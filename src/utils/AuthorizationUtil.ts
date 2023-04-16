@@ -1,14 +1,14 @@
-export type AccessTokenApiUrl = (typeof AuthorizationUtil.ACCESS_TOKEN_API_URLS)[number];
+export type AccessTokenApiUrl = (typeof AuthorizationUtil.accessTokenApiUrls)[number];
 
 export class AuthorizationUtil {
-  private static LOCALSTORAGE_KEY = "mlabToken";
+  private static localStorageKey = "mlabToken";
 
-  static readonly ACCESS_TOKEN_API_URLS = ["/api/users/login", "/api/users/access-token"] as const;
+  static readonly accessTokenApiUrls = ["/api/users/login", "/api/users/access-token"] as const;
 
   /**
    * 인증이 필요한 API URL, Method 목록
    */
-  static readonly AUTH_REQUIRED_API_URLS: Record<string, string[]> = {
+  static readonly authRequiredApiUrls: Record<string, string[]> = {
     ["/api/comments"]: ["POST", "PUT", "DELETE"],
     ["/api/categories"]: ["POST", "PUT", "DELETE"],
     ["/api/boards"]: ["POST", "PUT", "DELETE"],
@@ -26,20 +26,20 @@ export class AuthorizationUtil {
       return false;
     }
 
-    return Object.entries(AuthorizationUtil.AUTH_REQUIRED_API_URLS).some(
+    return Object.entries(AuthorizationUtil.authRequiredApiUrls).some(
       ([authRequiredUrl, methods]) => url.includes(authRequiredUrl) && methods.includes(method.toUpperCase())
     );
   };
 
   static isAccessTokenUrl = (url?: string): url is AccessTokenApiUrl => {
-    return AuthorizationUtil.ACCESS_TOKEN_API_URLS.some((accessTokenUrl) => url?.includes(accessTokenUrl));
+    return AuthorizationUtil.accessTokenApiUrls.some((accessTokenUrl) => url?.includes(accessTokenUrl));
   };
 
   static saveToken = (token: string) => {
     if (typeof window === "undefined") {
       return;
     }
-    localStorage.setItem(AuthorizationUtil.LOCALSTORAGE_KEY, token);
+    localStorage.setItem(AuthorizationUtil.localStorageKey, token);
   };
 
   /**
@@ -49,6 +49,6 @@ export class AuthorizationUtil {
     if (typeof window === "undefined") {
       return "";
     }
-    return localStorage.getItem(AuthorizationUtil.LOCALSTORAGE_KEY) || "";
+    return localStorage.getItem(AuthorizationUtil.localStorageKey) || "";
   };
 }
