@@ -15,6 +15,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: Get email
+        id: get-email
+        run: |
+            EMAIL=$(gh api /user/emails --paginate --jq '[.[] | select(.primary == true) | .email][0]')
+            echo "::set-output name=email::$EMAIL"
+        env: 
+            GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - name: Commit files
         run: |
             npm install
@@ -22,14 +29,14 @@ jobs:
             npm run tt:global
             npm run tt:light
             npm run tt:dark
-            git config --global user.name 'ddddddesigner'
-            git config --global user.email 'sendowluxui@gmail.com'
+            git config --global user.name "$GITHUB_ACTOR"
+            git config --global user.email "${{ steps.get-email.outputs.email }}"
             git add .
             git commit -m '💄 Update Styles'
             git push
         env: 
             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       - name: Create Pull Request
-        run: gh pr create -B main -H design --title '💄 Update Design Token' --body '디자인 토큰 업데이트 및 토큰 변환 수행' --reviewer ixio0330
+        run: gh pr create -B main -H design --title '💄 Update Design Token' --body '디자인 토큰 업데이트 및 토큰 변환 수행'
         env:
             GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
