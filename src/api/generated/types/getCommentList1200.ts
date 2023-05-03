@@ -5,4 +5,4 @@
  * OpenAPI spec version: v0
  */
 
-export type GetCommentList1200 = { [key: string]: any }
+export type GetCommentList1200 = { [key: string]: any };

@@ -6,9 +6,9 @@
  */
 
 export type GetCommentList1Params = {
-  boardId: number
+  boardId: number;
   /**
    * example: 5
    */
-  size: number
-}
+  size: number;
+};

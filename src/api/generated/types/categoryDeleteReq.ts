@@ -6,5 +6,5 @@
  */
 
 export interface CategoryDeleteReq {
-  id: number
+  id: number;
 }

@@ -4,19 +4,19 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { Pageable } from "./pageable"
+import type { Pageable } from "./pageable";
 
 export type GetPreviewBoardsParams = {
   /**
    * 게시글의 카테고리를 설정
    */
-  categoryId: number
+  categoryId: number;
   /**
    * 게시글 제목의 글자수 제한 설정
    */
-  titleLength: number
+  titleLength: number;
   /**
    * 페이지네이션을 위한 옵션
    */
-  pageable: Pageable
-}
+  pageable: Pageable;
+};

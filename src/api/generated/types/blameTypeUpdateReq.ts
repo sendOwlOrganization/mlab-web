@@ -6,6 +6,6 @@
  */
 
 export interface BlameTypeUpdateReq {
-  blameTypeId?: number
-  blameTypeName?: string
+  blameTypeId?: number;
+  blameTypeName?: string;
 }

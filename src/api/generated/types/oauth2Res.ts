@@ -4,10 +4,10 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { UserRes } from "./userRes"
+import type { UserRes } from "./userRes";
 
 export interface Oauth2Res {
-  alreadyJoined?: boolean
-  alreadySetted?: boolean
-  userRes?: UserRes
+  alreadyJoined?: boolean;
+  alreadySetted?: boolean;
+  userRes?: UserRes;
 }

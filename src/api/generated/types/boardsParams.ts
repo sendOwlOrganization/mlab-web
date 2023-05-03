@@ -4,11 +4,11 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { Pageable } from "./pageable"
+import type { Pageable } from "./pageable";
 
 export type BoardsParams = {
-  pageable: Pageable
-  textLength: number
-  query?: string
-  where?: string
-}
+  pageable: Pageable;
+  textLength: number;
+  query?: string;
+  where?: string;
+};

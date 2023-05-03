@@ -4,17 +4,17 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { Pageable } from "./pageable"
+import type { Pageable } from "./pageable";
 
 export type GetCommentListParams = {
   /**
    * 게시글 id
    */
-  boardId: number
+  boardId: number;
   /**
  * example: {"page": 0,"size": 1,
   "sort": ["regDate,desc"]
 }
  */
-  pageable: Pageable
-}
+  pageable: Pageable;
+};

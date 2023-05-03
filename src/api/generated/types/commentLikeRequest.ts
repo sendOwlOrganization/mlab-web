@@ -7,5 +7,5 @@
 
 export interface CommentLikeRequest {
   /** 댓글 id */
-  commentId?: number
+  commentId?: number;
 }

@@ -6,7 +6,7 @@
  */
 
 export interface CommentLikeResponse {
-  id?: number
-  userId?: number
-  commentId?: number
+  id?: number;
+  userId?: number;
+  commentId?: number;
 }

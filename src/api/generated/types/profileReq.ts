@@ -4,11 +4,11 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { ProfileReqGender } from "./profileReqGender"
+import type { ProfileReqGender } from "./profileReqGender";
 
 export interface ProfileReq {
-  mbti?: string
-  nickName?: string
-  age?: number
-  gender?: ProfileReqGender
+  mbti?: string;
+  nickName?: string;
+  age?: number;
+  gender?: ProfileReqGender;
 }

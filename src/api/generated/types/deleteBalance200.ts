@@ -5,4 +5,4 @@
  * OpenAPI spec version: v0
  */
 
-export type DeleteBalance200 = { [key: string]: any }
+export type DeleteBalance200 = { [key: string]: any };

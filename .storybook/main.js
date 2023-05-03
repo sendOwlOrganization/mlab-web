@@ -1,3 +1,5 @@
+const path = require("path");
+
 module.exports = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
@@ -13,5 +15,11 @@ module.exports = {
   },
   features: {
     interactionsDebugger: true // Enable playback controls in Interactions tab
+  },
+  webpackFinal: async (config) => {
+    Object.assign(config.resolve.alias, {
+      "@": path.resolve(__dirname, "../src")
+    });
+    return config;
   }
-}
+};

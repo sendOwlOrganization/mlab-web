@@ -5,4 +5,4 @@
  * OpenAPI spec version: v0
  */
 
-export type UpdateCategory200 = { [key: string]: any }
+export type UpdateCategory200 = { [key: string]: any };

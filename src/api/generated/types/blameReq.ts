@@ -4,13 +4,13 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { BlameReqBlameContentType } from "./blameReqBlameContentType"
+import type { BlameReqBlameContentType } from "./blameReqBlameContentType";
 
 export interface BlameReq {
-  blameTypeId?: number
-  blameDetails?: string
-  targetUserId?: number
-  blameContentType?: BlameReqBlameContentType
-  contentId?: number
-  contentDetails?: string
+  blameTypeId?: number;
+  blameDetails?: string;
+  targetUserId?: number;
+  blameContentType?: BlameReqBlameContentType;
+  contentId?: number;
+  contentDetails?: string;
 }
