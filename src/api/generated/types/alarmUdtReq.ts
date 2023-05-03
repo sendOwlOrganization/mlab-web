@@ -6,7 +6,7 @@
  */
 
 export interface AlarmUdtReq {
-  id: number
-  content?: string
-  typeId?: number
+  id: number;
+  content?: string;
+  typeId?: number;
 }

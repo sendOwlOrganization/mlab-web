@@ -5,7 +5,4 @@
  * OpenAPI spec version: v0
  */
 
-export interface CommentLikeRequest {
-  /** 댓글 id */
-  commentId?: number;
-}
+export type GetAccessToken200 = { [key: string]: any };

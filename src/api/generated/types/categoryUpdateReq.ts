@@ -7,7 +7,7 @@
 
 export interface CategoryUpdateReq {
   /** 카테고리 id */
-  id: number
+  id: number;
   /** 카테고리 이름 */
-  name: string
+  name: string;
 }

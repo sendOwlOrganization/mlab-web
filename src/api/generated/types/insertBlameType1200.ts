@@ -5,4 +5,4 @@
  * OpenAPI spec version: v0
  */
 
-export type InsertBlameType1200 = { [key: string]: any }
+export type InsertBlameType1200 = { [key: string]: any };

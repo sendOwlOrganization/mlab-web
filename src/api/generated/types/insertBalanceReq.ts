@@ -4,10 +4,10 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { InsertBalanceOptionReq } from "./insertBalanceOptionReq"
+import type { InsertBalanceOptionReq } from "./insertBalanceOptionReq";
 
 export interface InsertBalanceReq {
   /** 밸런스 게임 제목 */
-  balanceTitle?: string
-  insertBalanceOptionReqs?: InsertBalanceOptionReq[]
+  balanceTitle?: string;
+  insertBalanceOptionReqs?: InsertBalanceOptionReq[];
 }

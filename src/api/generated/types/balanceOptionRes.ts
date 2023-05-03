@@ -6,7 +6,7 @@
  */
 
 export interface BalanceOptionRes {
-  id?: number
-  optionTitle?: string
-  hit?: number
+  id?: number;
+  optionTitle?: string;
+  hit?: number;
 }

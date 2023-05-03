@@ -6,6 +6,6 @@
  */
 
 export interface UserMbti {
-  mbti?: string
-  count?: number
+  mbti?: string;
+  count?: number;
 }

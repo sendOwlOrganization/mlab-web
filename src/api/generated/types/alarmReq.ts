@@ -6,6 +6,6 @@
  */
 
 export interface AlarmReq {
-  content?: string
-  typeId?: number
+  content?: string;
+  typeId?: number;
 }

@@ -7,5 +7,5 @@
 
 export interface BoardLikeRequest {
   /** 게시글 id */
-  boardId?: number
+  boardId?: number;
 }

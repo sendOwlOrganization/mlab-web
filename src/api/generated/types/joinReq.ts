@@ -6,10 +6,10 @@
  */
 
 export interface JoinReq {
-  email: string
-  password: string
-  name: string
-  nickName?: string
-  introduction?: string
-  profileImage?: string
+  email: string;
+  password: string;
+  name: string;
+  nickName?: string;
+  introduction?: string;
+  profileImage?: string;
 }

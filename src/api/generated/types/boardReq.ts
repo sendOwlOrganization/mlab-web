@@ -4,12 +4,12 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { EditorJsContent } from "./editorJsContent"
+import type { EditorJsContent } from "./editorJsContent";
 
 export interface BoardReq {
   /** 타이틀 */
-  title: string
-  editorJsContent?: EditorJsContent
+  title: string;
+  editorJsContent?: EditorJsContent;
   /** 카테고리 id */
-  categoryId: number
+  categoryId: number;
 }

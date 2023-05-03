@@ -6,6 +6,6 @@
  */
 
 export interface Oauth2Req {
-  transactionId: string
-  token: string
+  transactionId: string;
+  token: string;
 }

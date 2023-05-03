@@ -5,11 +5,11 @@
  * OpenAPI spec version: v0
  */
 
-export type UserResGender = (typeof UserResGender)[keyof typeof UserResGender]
+export type UserResGender = (typeof UserResGender)[keyof typeof UserResGender];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UserResGender = {
   MALE: "MALE",
   FEMALE: "FEMALE",
   OTHER: "OTHER"
-} as const
+} as const;
