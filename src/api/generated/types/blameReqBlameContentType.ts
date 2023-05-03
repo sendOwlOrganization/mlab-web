@@ -5,10 +5,10 @@
  * OpenAPI spec version: v0
  */
 
-export type BlameReqBlameContentType = (typeof BlameReqBlameContentType)[keyof typeof BlameReqBlameContentType]
+export type BlameReqBlameContentType = (typeof BlameReqBlameContentType)[keyof typeof BlameReqBlameContentType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const BlameReqBlameContentType = {
   BOARD: "BOARD",
   COMMENT: "COMMENT"
-} as const
+} as const;

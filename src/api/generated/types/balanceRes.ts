@@ -4,10 +4,10 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import type { BalanceOptionRes } from "./balanceOptionRes"
+import type { BalanceOptionRes } from "./balanceOptionRes";
 
 export interface BalanceRes {
-  balanceId?: number
-  balanceTitle?: string
-  balanceOptionRes?: BalanceOptionRes[]
+  balanceId?: number;
+  balanceTitle?: string;
+  balanceOptionRes?: BalanceOptionRes[];
 }

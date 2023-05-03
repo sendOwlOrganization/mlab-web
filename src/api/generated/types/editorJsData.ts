@@ -6,6 +6,6 @@
  */
 
 export interface EditorJsData {
-  text?: string
-  items?: string[]
+  text?: string;
+  items?: string[];
 }

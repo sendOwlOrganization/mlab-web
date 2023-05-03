@@ -6,11 +6,11 @@
  */
 
 export interface JoinRes {
-  id?: number
-  email?: string
-  name?: string
-  nickName?: string
-  mbti?: string
-  introduction?: string
-  profileImage?: string
+  id?: number;
+  email?: string;
+  name?: string;
+  nickName?: string;
+  mbti?: string;
+  introduction?: string;
+  profileImage?: string;
 }

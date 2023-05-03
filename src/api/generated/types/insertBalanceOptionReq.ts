@@ -7,5 +7,5 @@
 
 export interface InsertBalanceOptionReq {
   /** 밸런스 게임 선택 항목 제목 */
-  title?: string
+  title?: string;
 }

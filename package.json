@@ -17,7 +17,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "chromatic --exit-zero-on-changes",
-    "gen": "rm -r src/api/generated && orval"
+    "gen": "rm -rf src/api/generated && orval"
   },
   "husky": {
     "hooks": {
@@ -35,13 +35,14 @@
     "next": "13.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-query": "^3.39.3"
+    "react-query": "^3.39.3",
+    "recoil": "^0.7.7"
   },
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
     "@babel/core": "^7.21.3",
     "@faker-js/faker": "^7.6.0",
-    "@playwright/test": "^1.31.2",
+    "@playwright/test": "^1.32.1",
     "@storybook/addon-a11y": "^6.5.16",
     "@storybook/addon-actions": "^6.5.16",
     "@storybook/addon-docs": "^6.5.16",

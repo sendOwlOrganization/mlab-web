@@ -4,7 +4,7 @@
  * OpenAPI definition
  * OpenAPI spec version: v0
  */
-import { useInfiniteQuery, useMutation, useQuery } from "react-query"
+import { useInfiniteQuery, useMutation, useQuery } from "react-query";
 import type {
   MutationFunction,
   QueryFunction,
@@ -14,7 +14,7 @@ import type {
   UseMutationOptions,
   UseQueryOptions,
   UseQueryResult
-} from "react-query"
+} from "react-query";
 import type {
   AlarmReq,
   AlarmUdtReq,
@@ -47,6 +47,7 @@ import type {
   DeleteBalance200,
   DeleteCategory200,
   DeleteComment200,
+  GetAccessToken200,
   GetAllBalanceRes,
   GetCommentList1200,
   GetCommentList1Params,
@@ -80,12 +81,12 @@ import type {
   UserSelfRes,
   VoteBalanceGame200,
   VoteBalanceReq
-} from "./types"
-import { customInstance } from "../mutator/custom-instance"
-import type { ErrorType } from "../mutator/custom-instance"
+} from "./types";
+import { customInstance } from "../mutator/custom-instance";
+import type { ErrorType } from "../mutator/custom-instance";
 
 // eslint-disable-next-line
-type SecondParameter<T extends (...args: any) => any> = T extends (config: any, args: infer P) => any ? P : never
+type SecondParameter<T extends (...args: any) => any> = T extends (config: any, args: infer P) => any ? P : never;
 
 /**
  * 게시글의 id를 통해 댓글 목록을 가져온다.
@@ -96,16 +97,16 @@ export const getCommentList = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<GetCommentList200>({ url: `/api/comments`, method: "get", params, signal }, options)
-}
+  return customInstance<GetCommentList200>({ url: `/api/comments`, method: "get", params, signal }, options);
+};
 
 export const getGetCommentListQueryKey = (params: GetCommentListParams) => [
   `/api/comments`,
   ...(params ? [params] : [])
-]
+];
 
-export type GetCommentListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getCommentList>>>
-export type GetCommentListInfiniteQueryError = ErrorType<unknown>
+export type GetCommentListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getCommentList>>>;
+export type GetCommentListInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetCommentListInfinite = <
   TData = Awaited<ReturnType<typeof getCommentList>>,
@@ -113,67 +114,67 @@ export const useGetCommentListInfinite = <
 >(
   params: GetCommentListParams,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getCommentList>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getCommentList>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCommentListQueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getGetCommentListQueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCommentList>>> = ({ signal }) =>
-    getCommentList(params, requestOptions, signal)
+    getCommentList(params, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getCommentList>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetCommentListQueryResult = NonNullable<Awaited<ReturnType<typeof getCommentList>>>
-export type GetCommentListQueryError = ErrorType<unknown>
+export type GetCommentListQueryResult = NonNullable<Awaited<ReturnType<typeof getCommentList>>>;
+export type GetCommentListQueryError = ErrorType<unknown>;
 
 export const useGetCommentList = <TData = Awaited<ReturnType<typeof getCommentList>>, TError = ErrorType<unknown>>(
   params: GetCommentListParams,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCommentList>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getCommentList>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCommentListQueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getGetCommentListQueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCommentList>>> = ({ signal }) =>
-    getCommentList(params, requestOptions, signal)
+    getCommentList(params, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getCommentList>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 댓글의 내용을 수정한다.
  * @summary 댓글 내용 수정
  */
 export const updateComment = (params: UpdateCommentParams, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<UpdateComment200>({ url: `/api/comments`, method: "put", params }, options)
-}
+  return customInstance<UpdateComment200>({ url: `/api/comments`, method: "put", params }, options);
+};
 
-export type UpdateCommentMutationResult = NonNullable<Awaited<ReturnType<typeof updateComment>>>
+export type UpdateCommentMutationResult = NonNullable<Awaited<ReturnType<typeof updateComment>>>;
 
-export type UpdateCommentMutationError = ErrorType<unknown>
+export type UpdateCommentMutationError = ErrorType<unknown>;
 
 export const useUpdateComment = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<
@@ -181,24 +182,24 @@ export const useUpdateComment = <TError = ErrorType<unknown>, TContext = unknown
     TError,
     { params: UpdateCommentParams },
     TContext
-  >
-  request?: SecondParameter<typeof customInstance>
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateComment>>, { params: UpdateCommentParams }> = (
     props
   ) => {
-    const { params } = props ?? {}
+    const { params } = props ?? {};
 
-    return updateComment(params, requestOptions)
-  }
+    return updateComment(params, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof updateComment>>, TError, { params: UpdateCommentParams }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 댓글을 삽입한다.
@@ -208,93 +209,93 @@ export const insertComment = (commentReq: CommentReq, options?: SecondParameter<
   return customInstance<InsertComment200>(
     { url: `/api/comments`, method: "post", headers: { "Content-Type": "application/json" }, data: commentReq },
     options
-  )
-}
+  );
+};
 
-export type InsertCommentMutationResult = NonNullable<Awaited<ReturnType<typeof insertComment>>>
-export type InsertCommentMutationBody = CommentReq
-export type InsertCommentMutationError = ErrorType<unknown>
+export type InsertCommentMutationResult = NonNullable<Awaited<ReturnType<typeof insertComment>>>;
+export type InsertCommentMutationBody = CommentReq;
+export type InsertCommentMutationError = ErrorType<unknown>;
 
 export const useInsertComment = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof insertComment>>, TError, { data: CommentReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof insertComment>>, TError, { data: CommentReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof insertComment>>, { data: CommentReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return insertComment(data, requestOptions)
-  }
+    return insertComment(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof insertComment>>, TError, { data: CommentReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 카테고리의 리스트만 반환한다.
  * @summary 카테고리 목록 조회
  */
 export const categories = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
-  return customInstance<Categories200>({ url: `/api/categories`, method: "get", signal }, options)
-}
+  return customInstance<Categories200>({ url: `/api/categories`, method: "get", signal }, options);
+};
 
-export const getCategoriesQueryKey = () => [`/api/categories`]
+export const getCategoriesQueryKey = () => [`/api/categories`];
 
-export type CategoriesInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof categories>>>
-export type CategoriesInfiniteQueryError = ErrorType<unknown>
+export type CategoriesInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof categories>>>;
+export type CategoriesInfiniteQueryError = ErrorType<unknown>;
 
 export const useCategoriesInfinite = <
   TData = Awaited<ReturnType<typeof categories>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof categories>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof categories>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getCategoriesQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getCategoriesQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof categories>>> = ({ signal }) =>
-    categories(requestOptions, signal)
+    categories(requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof categories>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type CategoriesQueryResult = NonNullable<Awaited<ReturnType<typeof categories>>>
-export type CategoriesQueryError = ErrorType<unknown>
+export type CategoriesQueryResult = NonNullable<Awaited<ReturnType<typeof categories>>>;
+export type CategoriesQueryError = ErrorType<unknown>;
 
 export const useCategories = <TData = Awaited<ReturnType<typeof categories>>, TError = ErrorType<unknown>>(options?: {
-  query?: UseQueryOptions<Awaited<ReturnType<typeof categories>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseQueryOptions<Awaited<ReturnType<typeof categories>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getCategoriesQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getCategoriesQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof categories>>> = ({ signal }) =>
-    categories(requestOptions, signal)
+    categories(requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof categories>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 카테고리의 이름을 변경한다.
@@ -307,12 +308,12 @@ export const updateCategory = (
   return customInstance<UpdateCategory200>(
     { url: `/api/categories`, method: "put", headers: { "Content-Type": "application/json" }, data: categoryUpdateReq },
     options
-  )
-}
+  );
+};
 
-export type UpdateCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof updateCategory>>>
-export type UpdateCategoryMutationBody = CategoryUpdateReq
-export type UpdateCategoryMutationError = ErrorType<unknown>
+export type UpdateCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof updateCategory>>>;
+export type UpdateCategoryMutationBody = CategoryUpdateReq;
+export type UpdateCategoryMutationError = ErrorType<unknown>;
 
 export const useUpdateCategory = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<
@@ -320,24 +321,24 @@ export const useUpdateCategory = <TError = ErrorType<unknown>, TContext = unknow
     TError,
     { data: CategoryUpdateReq },
     TContext
-  >
-  request?: SecondParameter<typeof customInstance>
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateCategory>>, { data: CategoryUpdateReq }> = (
     props
   ) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return updateCategory(data, requestOptions)
-  }
+    return updateCategory(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof updateCategory>>, TError, { data: CategoryUpdateReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 새로운 카테고리를 삽입한다.
@@ -355,12 +356,12 @@ export const insertCategory = (
       data: categoryInsertReq
     },
     options
-  )
-}
+  );
+};
 
-export type InsertCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof insertCategory>>>
-export type InsertCategoryMutationBody = CategoryInsertReq
-export type InsertCategoryMutationError = ErrorType<unknown>
+export type InsertCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof insertCategory>>>;
+export type InsertCategoryMutationBody = CategoryInsertReq;
+export type InsertCategoryMutationError = ErrorType<unknown>;
 
 export const useInsertCategory = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<
@@ -368,24 +369,24 @@ export const useInsertCategory = <TError = ErrorType<unknown>, TContext = unknow
     TError,
     { data: CategoryInsertReq },
     TContext
-  >
-  request?: SecondParameter<typeof customInstance>
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof insertCategory>>, { data: CategoryInsertReq }> = (
     props
   ) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return insertCategory(data, requestOptions)
-  }
+    return insertCategory(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof insertCategory>>, TError, { data: CategoryInsertReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 카테고리를 삭제한다.
@@ -403,12 +404,12 @@ export const deleteCategory = (
       data: categoryDeleteReq
     },
     options
-  )
-}
+  );
+};
 
-export type DeleteCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCategory>>>
-export type DeleteCategoryMutationBody = CategoryDeleteReq
-export type DeleteCategoryMutationError = ErrorType<unknown>
+export type DeleteCategoryMutationResult = NonNullable<Awaited<ReturnType<typeof deleteCategory>>>;
+export type DeleteCategoryMutationBody = CategoryDeleteReq;
+export type DeleteCategoryMutationError = ErrorType<unknown>;
 
 export const useDeleteCategory = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<
@@ -416,24 +417,24 @@ export const useDeleteCategory = <TError = ErrorType<unknown>, TContext = unknow
     TError,
     { data: CategoryDeleteReq },
     TContext
-  >
-  request?: SecondParameter<typeof customInstance>
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteCategory>>, { data: CategoryDeleteReq }> = (
     props
   ) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return deleteCategory(data, requestOptions)
-  }
+    return deleteCategory(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof deleteCategory>>, TError, { data: CategoryDeleteReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 조건에 따라 게시글을 조회한다.http://localhost:8080/api/boards?categoryId=0&page=0&size=1&sort=id,DESC
@@ -444,66 +445,66 @@ export const boards1 = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<Boards1200>({ url: `/api/boards`, method: "get", params, signal }, options)
-}
+  return customInstance<Boards1200>({ url: `/api/boards`, method: "get", params, signal }, options);
+};
 
-export const getBoards1QueryKey = (params: Boards1Params) => [`/api/boards`, ...(params ? [params] : [])]
+export const getBoards1QueryKey = (params: Boards1Params) => [`/api/boards`, ...(params ? [params] : [])];
 
-export type Boards1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof boards1>>>
-export type Boards1InfiniteQueryError = ErrorType<unknown>
+export type Boards1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof boards1>>>;
+export type Boards1InfiniteQueryError = ErrorType<unknown>;
 
 export const useBoards1Infinite = <TData = Awaited<ReturnType<typeof boards1>>, TError = ErrorType<unknown>>(
   params: Boards1Params,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof boards1>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof boards1>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getBoards1QueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getBoards1QueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof boards1>>> = ({ signal }) =>
-    boards1(params, requestOptions, signal)
+    boards1(params, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof boards1>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type Boards1QueryResult = NonNullable<Awaited<ReturnType<typeof boards1>>>
-export type Boards1QueryError = ErrorType<unknown>
+export type Boards1QueryResult = NonNullable<Awaited<ReturnType<typeof boards1>>>;
+export type Boards1QueryError = ErrorType<unknown>;
 
 export const useBoards1 = <TData = Awaited<ReturnType<typeof boards1>>, TError = ErrorType<unknown>>(
   params: Boards1Params,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof boards1>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof boards1>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getBoards1QueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getBoards1QueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof boards1>>> = ({ signal }) =>
-    boards1(params, requestOptions, signal)
+    boards1(params, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof boards1>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 게시글을 수정한다.
@@ -513,30 +514,30 @@ export const boardUpdate = (updateBoardReq: UpdateBoardReq, options?: SecondPara
   return customInstance<BoardUpdate200>(
     { url: `/api/boards`, method: "put", headers: { "Content-Type": "application/json" }, data: updateBoardReq },
     options
-  )
-}
+  );
+};
 
-export type BoardUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof boardUpdate>>>
-export type BoardUpdateMutationBody = UpdateBoardReq
-export type BoardUpdateMutationError = ErrorType<unknown>
+export type BoardUpdateMutationResult = NonNullable<Awaited<ReturnType<typeof boardUpdate>>>;
+export type BoardUpdateMutationBody = UpdateBoardReq;
+export type BoardUpdateMutationError = ErrorType<unknown>;
 
 export const useBoardUpdate = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof boardUpdate>>, TError, { data: UpdateBoardReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof boardUpdate>>, TError, { data: UpdateBoardReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof boardUpdate>>, { data: UpdateBoardReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return boardUpdate(data, requestOptions)
-  }
+    return boardUpdate(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof boardUpdate>>, TError, { data: UpdateBoardReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 새로운 게시글을 삽입한다.
@@ -546,96 +547,96 @@ export const board = (boardReq: BoardReq, options?: SecondParameter<typeof custo
   return customInstance<Board200>(
     { url: `/api/boards`, method: "post", headers: { "Content-Type": "application/json" }, data: boardReq },
     options
-  )
-}
+  );
+};
 
-export type BoardMutationResult = NonNullable<Awaited<ReturnType<typeof board>>>
-export type BoardMutationBody = BoardReq
-export type BoardMutationError = ErrorType<unknown>
+export type BoardMutationResult = NonNullable<Awaited<ReturnType<typeof board>>>;
+export type BoardMutationBody = BoardReq;
+export type BoardMutationError = ErrorType<unknown>;
 
 export const useBoard = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof board>>, TError, { data: BoardReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof board>>, TError, { data: BoardReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof board>>, { data: BoardReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return board(data, requestOptions)
-  }
+    return board(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof board>>, TError, { data: BoardReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 신고 가능한 종류를 나타낸다.
  * @summary 신고 종류
  */
 export const blameTypeList = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
-  return customInstance<BlameTypeList200>({ url: `/api/blame/type`, method: "get", signal }, options)
-}
+  return customInstance<BlameTypeList200>({ url: `/api/blame/type`, method: "get", signal }, options);
+};
 
-export const getBlameTypeListQueryKey = () => [`/api/blame/type`]
+export const getBlameTypeListQueryKey = () => [`/api/blame/type`];
 
-export type BlameTypeListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof blameTypeList>>>
-export type BlameTypeListInfiniteQueryError = ErrorType<unknown>
+export type BlameTypeListInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof blameTypeList>>>;
+export type BlameTypeListInfiniteQueryError = ErrorType<unknown>;
 
 export const useBlameTypeListInfinite = <
   TData = Awaited<ReturnType<typeof blameTypeList>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof blameTypeList>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof blameTypeList>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getBlameTypeListQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getBlameTypeListQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof blameTypeList>>> = ({ signal }) =>
-    blameTypeList(requestOptions, signal)
+    blameTypeList(requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof blameTypeList>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type BlameTypeListQueryResult = NonNullable<Awaited<ReturnType<typeof blameTypeList>>>
-export type BlameTypeListQueryError = ErrorType<unknown>
+export type BlameTypeListQueryResult = NonNullable<Awaited<ReturnType<typeof blameTypeList>>>;
+export type BlameTypeListQueryError = ErrorType<unknown>;
 
 export const useBlameTypeList = <
   TData = Awaited<ReturnType<typeof blameTypeList>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseQueryOptions<Awaited<ReturnType<typeof blameTypeList>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseQueryOptions<Awaited<ReturnType<typeof blameTypeList>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getBlameTypeListQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getBlameTypeListQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof blameTypeList>>> = ({ signal }) =>
-    blameTypeList(requestOptions, signal)
+    blameTypeList(requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof blameTypeList>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 신고 가능한 종류를 수정한다.
@@ -653,12 +654,12 @@ export const insertBlameType = (
       data: blameTypeUpdateReq
     },
     options
-  )
-}
+  );
+};
 
-export type InsertBlameTypeMutationResult = NonNullable<Awaited<ReturnType<typeof insertBlameType>>>
-export type InsertBlameTypeMutationBody = BlameTypeUpdateReq
-export type InsertBlameTypeMutationError = ErrorType<unknown>
+export type InsertBlameTypeMutationResult = NonNullable<Awaited<ReturnType<typeof insertBlameType>>>;
+export type InsertBlameTypeMutationBody = BlameTypeUpdateReq;
+export type InsertBlameTypeMutationError = ErrorType<unknown>;
 
 export const useInsertBlameType = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
   mutation?: UseMutationOptions<
@@ -666,24 +667,24 @@ export const useInsertBlameType = <TError = ErrorType<unknown>, TContext = unkno
     TError,
     { data: BlameTypeUpdateReq },
     TContext
-  >
-  request?: SecondParameter<typeof customInstance>
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof insertBlameType>>, { data: BlameTypeUpdateReq }> = (
     props
   ) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return insertBlameType(data, requestOptions)
-  }
+    return insertBlameType(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof insertBlameType>>, TError, { data: BlameTypeUpdateReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 신고 가능 종류 하나를 새롭게 삽입한다.
@@ -693,32 +694,32 @@ export const insertBlameType1 = (blameTypeReq: BlameTypeReq, options?: SecondPar
   return customInstance<InsertBlameType1200>(
     { url: `/api/blame/type`, method: "post", headers: { "Content-Type": "application/json" }, data: blameTypeReq },
     options
-  )
-}
+  );
+};
 
-export type InsertBlameType1MutationResult = NonNullable<Awaited<ReturnType<typeof insertBlameType1>>>
-export type InsertBlameType1MutationBody = BlameTypeReq
-export type InsertBlameType1MutationError = ErrorType<unknown>
+export type InsertBlameType1MutationResult = NonNullable<Awaited<ReturnType<typeof insertBlameType1>>>;
+export type InsertBlameType1MutationBody = BlameTypeReq;
+export type InsertBlameType1MutationError = ErrorType<unknown>;
 
 export const useInsertBlameType1 = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof insertBlameType1>>, TError, { data: BlameTypeReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof insertBlameType1>>, TError, { data: BlameTypeReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof insertBlameType1>>, { data: BlameTypeReq }> = (
     props
   ) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return insertBlameType1(data, requestOptions)
-  }
+    return insertBlameType1(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof insertBlameType1>>, TError, { data: BlameTypeReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 알림 확인 시, 알림체크 테이블에 등록
@@ -729,13 +730,13 @@ export const insertAlarmChk = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<InsertAlarmChk200>({ url: `/api/alarm/${alarmId}`, method: "get", signal }, options)
-}
+  return customInstance<InsertAlarmChk200>({ url: `/api/alarm/${alarmId}`, method: "get", signal }, options);
+};
 
-export const getInsertAlarmChkQueryKey = (alarmId: number) => [`/api/alarm/${alarmId}`]
+export const getInsertAlarmChkQueryKey = (alarmId: number) => [`/api/alarm/${alarmId}`];
 
-export type InsertAlarmChkInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof insertAlarmChk>>>
-export type InsertAlarmChkInfiniteQueryError = ErrorType<unknown>
+export type InsertAlarmChkInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof insertAlarmChk>>>;
+export type InsertAlarmChkInfiniteQueryError = ErrorType<unknown>;
 
 export const useInsertAlarmChkInfinite = <
   TData = Awaited<ReturnType<typeof insertAlarmChk>>,
@@ -743,87 +744,87 @@ export const useInsertAlarmChkInfinite = <
 >(
   alarmId: number,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof insertAlarmChk>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof insertAlarmChk>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getInsertAlarmChkQueryKey(alarmId)
+  const queryKey = queryOptions?.queryKey ?? getInsertAlarmChkQueryKey(alarmId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof insertAlarmChk>>> = ({ signal }) =>
-    insertAlarmChk(alarmId, requestOptions, signal)
+    insertAlarmChk(alarmId, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof insertAlarmChk>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!alarmId,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type InsertAlarmChkQueryResult = NonNullable<Awaited<ReturnType<typeof insertAlarmChk>>>
-export type InsertAlarmChkQueryError = ErrorType<unknown>
+export type InsertAlarmChkQueryResult = NonNullable<Awaited<ReturnType<typeof insertAlarmChk>>>;
+export type InsertAlarmChkQueryError = ErrorType<unknown>;
 
 export const useInsertAlarmChk = <TData = Awaited<ReturnType<typeof insertAlarmChk>>, TError = ErrorType<unknown>>(
   alarmId: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof insertAlarmChk>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof insertAlarmChk>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getInsertAlarmChkQueryKey(alarmId)
+  const queryKey = queryOptions?.queryKey ?? getInsertAlarmChkQueryKey(alarmId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof insertAlarmChk>>> = ({ signal }) =>
-    insertAlarmChk(alarmId, requestOptions, signal)
+    insertAlarmChk(alarmId, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof insertAlarmChk>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!alarmId,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 관리자 -> 전체 알림 삭제
  * @summary 전체 알림 삭제
  */
 export const deleteAlarm = (alarmId: number, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<DeleteAlarm200>({ url: `/api/alarm/${alarmId}`, method: "put" }, options)
-}
+  return customInstance<DeleteAlarm200>({ url: `/api/alarm/${alarmId}`, method: "put" }, options);
+};
 
-export type DeleteAlarmMutationResult = NonNullable<Awaited<ReturnType<typeof deleteAlarm>>>
+export type DeleteAlarmMutationResult = NonNullable<Awaited<ReturnType<typeof deleteAlarm>>>;
 
-export type DeleteAlarmMutationError = ErrorType<unknown>
+export type DeleteAlarmMutationError = ErrorType<unknown>;
 
 export const useDeleteAlarm = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteAlarm>>, TError, { alarmId: number }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteAlarm>>, TError, { alarmId: number }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteAlarm>>, { alarmId: number }> = (props) => {
-    const { alarmId } = props ?? {}
+    const { alarmId } = props ?? {};
 
-    return deleteAlarm(alarmId, requestOptions)
-  }
+    return deleteAlarm(alarmId, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof deleteAlarm>>, TError, { alarmId: number }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 관리자 -> 전체 알림 수정
@@ -833,30 +834,30 @@ export const updateAlarm = (alarmUdtReq: AlarmUdtReq, options?: SecondParameter<
   return customInstance<UpdateAlarm200>(
     { url: `/api/alarm/content`, method: "put", headers: { "Content-Type": "application/json" }, data: alarmUdtReq },
     options
-  )
-}
+  );
+};
 
-export type UpdateAlarmMutationResult = NonNullable<Awaited<ReturnType<typeof updateAlarm>>>
-export type UpdateAlarmMutationBody = AlarmUdtReq
-export type UpdateAlarmMutationError = ErrorType<unknown>
+export type UpdateAlarmMutationResult = NonNullable<Awaited<ReturnType<typeof updateAlarm>>>;
+export type UpdateAlarmMutationBody = AlarmUdtReq;
+export type UpdateAlarmMutationError = ErrorType<unknown>;
 
 export const useUpdateAlarm = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof updateAlarm>>, TError, { data: AlarmUdtReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof updateAlarm>>, TError, { data: AlarmUdtReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateAlarm>>, { data: AlarmUdtReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return updateAlarm(data, requestOptions)
-  }
+    return updateAlarm(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof updateAlarm>>, TError, { data: AlarmUdtReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * Oauth 인증 후 사용자 프로필(mbti, 닉네임, 나이, 성별) 설정
@@ -871,30 +872,30 @@ export const setUser = (profileReq: ProfileReq, options?: SecondParameter<typeof
       data: profileReq
     },
     options
-  )
-}
+  );
+};
 
-export type SetUserMutationResult = NonNullable<Awaited<ReturnType<typeof setUser>>>
-export type SetUserMutationBody = ProfileReq
-export type SetUserMutationError = ErrorType<unknown>
+export type SetUserMutationResult = NonNullable<Awaited<ReturnType<typeof setUser>>>;
+export type SetUserMutationBody = ProfileReq;
+export type SetUserMutationError = ErrorType<unknown>;
 
 export const useSetUser = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof setUser>>, TError, { data: ProfileReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof setUser>>, TError, { data: ProfileReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof setUser>>, { data: ProfileReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return setUser(data, requestOptions)
-  }
+    return setUser(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof setUser>>, TError, { data: ProfileReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * @summary 토큰기반 Oauth2인증
@@ -903,30 +904,30 @@ export const getUserByToken = (oauth2Req: Oauth2Req, options?: SecondParameter<t
   return customInstance<Oauth2Res>(
     { url: `/api/users/oauth2`, method: "post", headers: { "Content-Type": "application/json" }, data: oauth2Req },
     options
-  )
-}
+  );
+};
 
-export type GetUserByTokenMutationResult = NonNullable<Awaited<ReturnType<typeof getUserByToken>>>
-export type GetUserByTokenMutationBody = Oauth2Req
-export type GetUserByTokenMutationError = ErrorType<unknown>
+export type GetUserByTokenMutationResult = NonNullable<Awaited<ReturnType<typeof getUserByToken>>>;
+export type GetUserByTokenMutationBody = Oauth2Req;
+export type GetUserByTokenMutationError = ErrorType<unknown>;
 
 export const useGetUserByToken = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof getUserByToken>>, TError, { data: Oauth2Req }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof getUserByToken>>, TError, { data: Oauth2Req }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof getUserByToken>>, { data: Oauth2Req }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return getUserByToken(data, requestOptions)
-  }
+    return getUserByToken(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof getUserByToken>>, TError, { data: Oauth2Req }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * @summary 로그인
@@ -935,30 +936,30 @@ export const login = (loginReq: LoginReq, options?: SecondParameter<typeof custo
   return customInstance<UserRes>(
     { url: `/api/users/login`, method: "post", headers: { "Content-Type": "application/json" }, data: loginReq },
     options
-  )
-}
+  );
+};
 
-export type LoginMutationResult = NonNullable<Awaited<ReturnType<typeof login>>>
-export type LoginMutationBody = LoginReq
-export type LoginMutationError = ErrorType<unknown>
+export type LoginMutationResult = NonNullable<Awaited<ReturnType<typeof login>>>;
+export type LoginMutationBody = LoginReq;
+export type LoginMutationError = ErrorType<unknown>;
 
 export const useLogin = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof login>>, TError, { data: LoginReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof login>>, TError, { data: LoginReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof login>>, { data: LoginReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return login(data, requestOptions)
-  }
+    return login(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof login>>, TError, { data: LoginReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * @summary 무한 로그인
@@ -972,30 +973,30 @@ export const infiniteLogin = (loginReq: LoginReq, options?: SecondParameter<type
       data: loginReq
     },
     options
-  )
-}
+  );
+};
 
-export type InfiniteLoginMutationResult = NonNullable<Awaited<ReturnType<typeof infiniteLogin>>>
-export type InfiniteLoginMutationBody = LoginReq
-export type InfiniteLoginMutationError = ErrorType<unknown>
+export type InfiniteLoginMutationResult = NonNullable<Awaited<ReturnType<typeof infiniteLogin>>>;
+export type InfiniteLoginMutationBody = LoginReq;
+export type InfiniteLoginMutationError = ErrorType<unknown>;
 
 export const useInfiniteLogin = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof infiniteLogin>>, TError, { data: LoginReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof infiniteLogin>>, TError, { data: LoginReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof infiniteLogin>>, { data: LoginReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return infiniteLogin(data, requestOptions)
-  }
+    return infiniteLogin(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof infiniteLogin>>, TError, { data: LoginReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * @summary 회원가입
@@ -1004,27 +1005,30 @@ export const join = (joinReq: JoinReq, options?: SecondParameter<typeof customIn
   return customInstance<JoinRes>(
     { url: `/api/users/join`, method: "post", headers: { "Content-Type": "application/json" }, data: joinReq },
     options
-  )
-}
+  );
+};
 
-export type JoinMutationResult = NonNullable<Awaited<ReturnType<typeof join>>>
-export type JoinMutationBody = JoinReq
-export type JoinMutationError = ErrorType<unknown>
+export type JoinMutationResult = NonNullable<Awaited<ReturnType<typeof join>>>;
+export type JoinMutationBody = JoinReq;
+export type JoinMutationError = ErrorType<unknown>;
 
 export const useJoin = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof join>>, TError, { data: JoinReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof join>>, TError, { data: JoinReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof join>>, { data: JoinReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return join(data, requestOptions)
-  }
+    return join(data, requestOptions);
+  };
 
-  return useMutation<Awaited<ReturnType<typeof join>>, TError, { data: JoinReq }, TContext>(mutationFn, mutationOptions)
-}
+  return useMutation<Awaited<ReturnType<typeof join>>, TError, { data: JoinReq }, TContext>(
+    mutationFn,
+    mutationOptions
+  );
+};
 
 /**
  * 댓글 좋아요
@@ -1042,32 +1046,37 @@ export const commentLike = (
       data: commentLikeRequest
     },
     options
-  )
-}
+  );
+};
 
-export type CommentLikeMutationResult = NonNullable<Awaited<ReturnType<typeof commentLike>>>
-export type CommentLikeMutationBody = CommentLikeRequest
-export type CommentLikeMutationError = ErrorType<unknown>
+export type CommentLikeMutationResult = NonNullable<Awaited<ReturnType<typeof commentLike>>>;
+export type CommentLikeMutationBody = CommentLikeRequest;
+export type CommentLikeMutationError = ErrorType<unknown>;
 
 export const useCommentLike = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof commentLike>>, TError, { data: CommentLikeRequest }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof commentLike>>,
+    TError,
+    { data: CommentLikeRequest },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof commentLike>>, { data: CommentLikeRequest }> = (
     props
   ) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return commentLike(data, requestOptions)
-  }
+    return commentLike(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof commentLike>>, TError, { data: CommentLikeRequest }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 게시글 좋아요
@@ -1077,30 +1086,30 @@ export const boardLike = (boardLikeRequest: BoardLikeRequest, options?: SecondPa
   return customInstance<BoardLikeResponse>(
     { url: `/api/like/board`, method: "post", headers: { "Content-Type": "application/json" }, data: boardLikeRequest },
     options
-  )
-}
+  );
+};
 
-export type BoardLikeMutationResult = NonNullable<Awaited<ReturnType<typeof boardLike>>>
-export type BoardLikeMutationBody = BoardLikeRequest
-export type BoardLikeMutationError = ErrorType<unknown>
+export type BoardLikeMutationResult = NonNullable<Awaited<ReturnType<typeof boardLike>>>;
+export type BoardLikeMutationBody = BoardLikeRequest;
+export type BoardLikeMutationError = ErrorType<unknown>;
 
 export const useBoardLike = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof boardLike>>, TError, { data: BoardLikeRequest }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof boardLike>>, TError, { data: BoardLikeRequest }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof boardLike>>, { data: BoardLikeRequest }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return boardLike(data, requestOptions)
-  }
+    return boardLike(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof boardLike>>, TError, { data: BoardLikeRequest }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 부적절한 글이나 댓글을 신고할 때 사용한다.
@@ -1110,96 +1119,96 @@ export const blame = (blameReq: BlameReq, options?: SecondParameter<typeof custo
   return customInstance<Blame200>(
     { url: `/api/blame`, method: "post", headers: { "Content-Type": "application/json" }, data: blameReq },
     options
-  )
-}
+  );
+};
 
-export type BlameMutationResult = NonNullable<Awaited<ReturnType<typeof blame>>>
-export type BlameMutationBody = BlameReq
-export type BlameMutationError = ErrorType<unknown>
+export type BlameMutationResult = NonNullable<Awaited<ReturnType<typeof blame>>>;
+export type BlameMutationBody = BlameReq;
+export type BlameMutationError = ErrorType<unknown>;
 
 export const useBlame = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof blame>>, TError, { data: BlameReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof blame>>, TError, { data: BlameReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof blame>>, { data: BlameReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return blame(data, requestOptions)
-  }
+    return blame(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof blame>>, TError, { data: BlameReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 밸런스 게임 10개를 받아온다.
  * @summary 밸런스게임 최신순 10개 조회
  */
 export const getAllBalance = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
-  return customInstance<GetAllBalanceRes>({ url: `/api/balances`, method: "get", signal }, options)
-}
+  return customInstance<GetAllBalanceRes>({ url: `/api/balances`, method: "get", signal }, options);
+};
 
-export const getGetAllBalanceQueryKey = () => [`/api/balances`]
+export const getGetAllBalanceQueryKey = () => [`/api/balances`];
 
-export type GetAllBalanceInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getAllBalance>>>
-export type GetAllBalanceInfiniteQueryError = ErrorType<unknown>
+export type GetAllBalanceInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getAllBalance>>>;
+export type GetAllBalanceInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetAllBalanceInfinite = <
   TData = Awaited<ReturnType<typeof getAllBalance>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getAllBalance>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getAllBalance>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetAllBalanceQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getGetAllBalanceQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllBalance>>> = ({ signal }) =>
-    getAllBalance(requestOptions, signal)
+    getAllBalance(requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getAllBalance>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetAllBalanceQueryResult = NonNullable<Awaited<ReturnType<typeof getAllBalance>>>
-export type GetAllBalanceQueryError = ErrorType<unknown>
+export type GetAllBalanceQueryResult = NonNullable<Awaited<ReturnType<typeof getAllBalance>>>;
+export type GetAllBalanceQueryError = ErrorType<unknown>;
 
 export const useGetAllBalance = <
   TData = Awaited<ReturnType<typeof getAllBalance>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseQueryOptions<Awaited<ReturnType<typeof getAllBalance>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getAllBalance>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetAllBalanceQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getGetAllBalanceQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getAllBalance>>> = ({ signal }) =>
-    getAllBalance(requestOptions, signal)
+    getAllBalance(requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getAllBalance>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 밸런스 게임을 등록한다.
@@ -1209,32 +1218,37 @@ export const insertBalance = (insertBalanceReq: InsertBalanceReq, options?: Seco
   return customInstance<InsertBalance200>(
     { url: `/api/balances`, method: "post", headers: { "Content-Type": "application/json" }, data: insertBalanceReq },
     options
-  )
-}
+  );
+};
 
-export type InsertBalanceMutationResult = NonNullable<Awaited<ReturnType<typeof insertBalance>>>
-export type InsertBalanceMutationBody = InsertBalanceReq
-export type InsertBalanceMutationError = ErrorType<unknown>
+export type InsertBalanceMutationResult = NonNullable<Awaited<ReturnType<typeof insertBalance>>>;
+export type InsertBalanceMutationBody = InsertBalanceReq;
+export type InsertBalanceMutationError = ErrorType<unknown>;
 
 export const useInsertBalance = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof insertBalance>>, TError, { data: InsertBalanceReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof insertBalance>>,
+    TError,
+    { data: InsertBalanceReq },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof insertBalance>>, { data: InsertBalanceReq }> = (
     props
   ) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return insertBalance(data, requestOptions)
-  }
+    return insertBalance(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof insertBalance>>, TError, { data: InsertBalanceReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 밸런스 게임에 투표한다.
@@ -1249,32 +1263,37 @@ export const voteBalanceGame = (voteBalanceReq: VoteBalanceReq, options?: Second
       data: voteBalanceReq
     },
     options
-  )
-}
+  );
+};
 
-export type VoteBalanceGameMutationResult = NonNullable<Awaited<ReturnType<typeof voteBalanceGame>>>
-export type VoteBalanceGameMutationBody = VoteBalanceReq
-export type VoteBalanceGameMutationError = ErrorType<unknown>
+export type VoteBalanceGameMutationResult = NonNullable<Awaited<ReturnType<typeof voteBalanceGame>>>;
+export type VoteBalanceGameMutationBody = VoteBalanceReq;
+export type VoteBalanceGameMutationError = ErrorType<unknown>;
 
 export const useVoteBalanceGame = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof voteBalanceGame>>, TError, { data: VoteBalanceReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof voteBalanceGame>>,
+    TError,
+    { data: VoteBalanceReq },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof voteBalanceGame>>, { data: VoteBalanceReq }> = (
     props
   ) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return voteBalanceGame(data, requestOptions)
-  }
+    return voteBalanceGame(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof voteBalanceGame>>, TError, { data: VoteBalanceReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 전체 알림 및 개별 알림 등록
@@ -1284,97 +1303,97 @@ export const insertAlarm = (alarmReq: AlarmReq, options?: SecondParameter<typeof
   return customInstance<InsertAlarm200>(
     { url: `/api/alarm`, method: "post", headers: { "Content-Type": "application/json" }, data: alarmReq },
     options
-  )
-}
+  );
+};
 
-export type InsertAlarmMutationResult = NonNullable<Awaited<ReturnType<typeof insertAlarm>>>
-export type InsertAlarmMutationBody = AlarmReq
-export type InsertAlarmMutationError = ErrorType<unknown>
+export type InsertAlarmMutationResult = NonNullable<Awaited<ReturnType<typeof insertAlarm>>>;
+export type InsertAlarmMutationBody = AlarmReq;
+export type InsertAlarmMutationError = ErrorType<unknown>;
 
 export const useInsertAlarm = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof insertAlarm>>, TError, { data: AlarmReq }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof insertAlarm>>, TError, { data: AlarmReq }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof insertAlarm>>, { data: AlarmReq }> = (props) => {
-    const { data } = props ?? {}
+    const { data } = props ?? {};
 
-    return insertAlarm(data, requestOptions)
-  }
+    return insertAlarm(data, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof insertAlarm>>, TError, { data: AlarmReq }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * @summary id로 유저 검색
  */
 export const getUserById = (userId: number, options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
-  return customInstance<UserRes>({ url: `/api/users/${userId}`, method: "get", signal }, options)
-}
+  return customInstance<UserRes>({ url: `/api/users/${userId}`, method: "get", signal }, options);
+};
 
-export const getGetUserByIdQueryKey = (userId: number) => [`/api/users/${userId}`]
+export const getGetUserByIdQueryKey = (userId: number) => [`/api/users/${userId}`];
 
-export type GetUserByIdInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getUserById>>>
-export type GetUserByIdInfiniteQueryError = ErrorType<unknown>
+export type GetUserByIdInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getUserById>>>;
+export type GetUserByIdInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetUserByIdInfinite = <TData = Awaited<ReturnType<typeof getUserById>>, TError = ErrorType<unknown>>(
   userId: number,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getUserById>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getUserById>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUserByIdQueryKey(userId)
+  const queryKey = queryOptions?.queryKey ?? getGetUserByIdQueryKey(userId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserById>>> = ({ signal }) =>
-    getUserById(userId, requestOptions, signal)
+    getUserById(userId, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getUserById>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!userId,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetUserByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getUserById>>>
-export type GetUserByIdQueryError = ErrorType<unknown>
+export type GetUserByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getUserById>>>;
+export type GetUserByIdQueryError = ErrorType<unknown>;
 
 export const useGetUserById = <TData = Awaited<ReturnType<typeof getUserById>>, TError = ErrorType<unknown>>(
   userId: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getUserById>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getUserById>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUserByIdQueryKey(userId)
+  const queryKey = queryOptions?.queryKey ?? getGetUserByIdQueryKey(userId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserById>>> = ({ signal }) =>
-    getUserById(userId, requestOptions, signal)
+    getUserById(userId, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getUserById>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!userId,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * @summary 사용자 닉네임 중복 확인
@@ -1384,13 +1403,13 @@ export const checkUserNickName = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<boolean>({ url: `/api/users/${nickName}/nickname-exists`, method: "get", signal }, options)
-}
+  return customInstance<boolean>({ url: `/api/users/${nickName}/nickname-exists`, method: "get", signal }, options);
+};
 
-export const getCheckUserNickNameQueryKey = (nickName: string) => [`/api/users/${nickName}/nickname-exists`]
+export const getCheckUserNickNameQueryKey = (nickName: string) => [`/api/users/${nickName}/nickname-exists`];
 
-export type CheckUserNickNameInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof checkUserNickName>>>
-export type CheckUserNickNameInfiniteQueryError = ErrorType<unknown>
+export type CheckUserNickNameInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof checkUserNickName>>>;
+export type CheckUserNickNameInfiniteQueryError = ErrorType<unknown>;
 
 export const useCheckUserNickNameInfinite = <
   TData = Awaited<ReturnType<typeof checkUserNickName>>,
@@ -1398,31 +1417,31 @@ export const useCheckUserNickNameInfinite = <
 >(
   nickName: string,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof checkUserNickName>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof checkUserNickName>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getCheckUserNickNameQueryKey(nickName)
+  const queryKey = queryOptions?.queryKey ?? getCheckUserNickNameQueryKey(nickName);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof checkUserNickName>>> = ({ signal }) =>
-    checkUserNickName(nickName, requestOptions, signal)
+    checkUserNickName(nickName, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof checkUserNickName>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!nickName,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type CheckUserNickNameQueryResult = NonNullable<Awaited<ReturnType<typeof checkUserNickName>>>
-export type CheckUserNickNameQueryError = ErrorType<unknown>
+export type CheckUserNickNameQueryResult = NonNullable<Awaited<ReturnType<typeof checkUserNickName>>>;
+export type CheckUserNickNameQueryError = ErrorType<unknown>;
 
 export const useCheckUserNickName = <
   TData = Awaited<ReturnType<typeof checkUserNickName>>,
@@ -1430,91 +1449,157 @@ export const useCheckUserNickName = <
 >(
   nickName: string,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof checkUserNickName>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof checkUserNickName>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getCheckUserNickNameQueryKey(nickName)
+  const queryKey = queryOptions?.queryKey ?? getCheckUserNickNameQueryKey(nickName);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof checkUserNickName>>> = ({ signal }) =>
-    checkUserNickName(nickName, requestOptions, signal)
+    checkUserNickName(nickName, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof checkUserNickName>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!nickName,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 사용자 자신의 정보를 가져온다
  * @summary 자신의 정보를 가져옴
  */
 export const getUserSelf = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
-  return customInstance<UserSelfRes>({ url: `/api/users/me`, method: "get", signal }, options)
-}
+  return customInstance<UserSelfRes>({ url: `/api/users/me`, method: "get", signal }, options);
+};
 
-export const getGetUserSelfQueryKey = () => [`/api/users/me`]
+export const getGetUserSelfQueryKey = () => [`/api/users/me`];
 
-export type GetUserSelfInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getUserSelf>>>
-export type GetUserSelfInfiniteQueryError = ErrorType<unknown>
+export type GetUserSelfInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getUserSelf>>>;
+export type GetUserSelfInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetUserSelfInfinite = <
   TData = Awaited<ReturnType<typeof getUserSelf>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getUserSelf>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getUserSelf>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUserSelfQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getGetUserSelfQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserSelf>>> = ({ signal }) =>
-    getUserSelf(requestOptions, signal)
+    getUserSelf(requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getUserSelf>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetUserSelfQueryResult = NonNullable<Awaited<ReturnType<typeof getUserSelf>>>
-export type GetUserSelfQueryError = ErrorType<unknown>
+export type GetUserSelfQueryResult = NonNullable<Awaited<ReturnType<typeof getUserSelf>>>;
+export type GetUserSelfQueryError = ErrorType<unknown>;
 
 export const useGetUserSelf = <TData = Awaited<ReturnType<typeof getUserSelf>>, TError = ErrorType<unknown>>(options?: {
-  query?: UseQueryOptions<Awaited<ReturnType<typeof getUserSelf>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getUserSelf>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUserSelfQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getGetUserSelfQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserSelf>>> = ({ signal }) =>
-    getUserSelf(requestOptions, signal)
+    getUserSelf(requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getUserSelf>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
+
+/**
+ * 사용자가 refreshToken 을 이용하여 accessToken을 다시 받고 싶을때 사용한다.
+ * @summary AccessToken 재발급
+ */
+export const getAccessToken = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
+  return customInstance<GetAccessToken200>({ url: `/api/users/access-token`, method: "get", signal }, options);
+};
+
+export const getGetAccessTokenQueryKey = () => [`/api/users/access-token`];
+
+export type GetAccessTokenInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getAccessToken>>>;
+export type GetAccessTokenInfiniteQueryError = ErrorType<unknown>;
+
+export const useGetAccessTokenInfinite = <
+  TData = Awaited<ReturnType<typeof getAccessToken>>,
+  TError = ErrorType<unknown>
+>(options?: {
+  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getAccessToken>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
+}): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAccessTokenQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAccessToken>>> = ({ signal }) =>
+    getAccessToken(requestOptions, signal);
+
+  const query = useInfiniteQuery<Awaited<ReturnType<typeof getAccessToken>>, TError, TData>({
+    queryKey,
+    queryFn,
+    ...queryOptions
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryKey;
+
+  return query;
+};
+
+export type GetAccessTokenQueryResult = NonNullable<Awaited<ReturnType<typeof getAccessToken>>>;
+export type GetAccessTokenQueryError = ErrorType<unknown>;
+
+export const useGetAccessToken = <
+  TData = Awaited<ReturnType<typeof getAccessToken>>,
+  TError = ErrorType<unknown>
+>(options?: {
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getAccessToken>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
+}): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
+  const { query: queryOptions, request: requestOptions } = options ?? {};
+
+  const queryKey = queryOptions?.queryKey ?? getGetAccessTokenQueryKey();
+
+  const queryFn: QueryFunction<Awaited<ReturnType<typeof getAccessToken>>> = ({ signal }) =>
+    getAccessToken(requestOptions, signal);
+
+  const query = useQuery<Awaited<ReturnType<typeof getAccessToken>>, TError, TData>({
+    queryKey,
+    queryFn,
+    ...queryOptions
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
+
+  query.queryKey = queryKey;
+
+  return query;
+};
 
 /**
  * 원하는 쿼리, 분류를 통해 검색한다.http://localhost:8080/api/search?page=0&size=10&sort=id,DESC&query=sendowl&type=title
@@ -1525,129 +1610,129 @@ export const boards = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<BoardsRes>({ url: `/api/search`, method: "get", params, signal }, options)
-}
+  return customInstance<BoardsRes>({ url: `/api/search`, method: "get", params, signal }, options);
+};
 
-export const getBoardsQueryKey = (params: BoardsParams) => [`/api/search`, ...(params ? [params] : [])]
+export const getBoardsQueryKey = (params: BoardsParams) => [`/api/search`, ...(params ? [params] : [])];
 
-export type BoardsInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof boards>>>
-export type BoardsInfiniteQueryError = ErrorType<unknown>
+export type BoardsInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof boards>>>;
+export type BoardsInfiniteQueryError = ErrorType<unknown>;
 
 export const useBoardsInfinite = <TData = Awaited<ReturnType<typeof boards>>, TError = ErrorType<unknown>>(
   params: BoardsParams,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof boards>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof boards>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getBoardsQueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getBoardsQueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof boards>>> = ({ signal }) =>
-    boards(params, requestOptions, signal)
+    boards(params, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof boards>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type BoardsQueryResult = NonNullable<Awaited<ReturnType<typeof boards>>>
-export type BoardsQueryError = ErrorType<unknown>
+export type BoardsQueryResult = NonNullable<Awaited<ReturnType<typeof boards>>>;
+export type BoardsQueryError = ErrorType<unknown>;
 
 export const useBoards = <TData = Awaited<ReturnType<typeof boards>>, TError = ErrorType<unknown>>(
   params: BoardsParams,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof boards>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof boards>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getBoardsQueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getBoardsQueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof boards>>> = ({ signal }) =>
-    boards(params, requestOptions, signal)
+    boards(params, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof boards>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 모든 유저들의 mbti 수를 반환한다.
  * @summary 유저들의 mbti 조회
  */
 export const getUserMbti = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
-  return customInstance<UserMbti[]>({ url: `/api/mbti/users`, method: "get", signal }, options)
-}
+  return customInstance<UserMbti[]>({ url: `/api/mbti/users`, method: "get", signal }, options);
+};
 
-export const getGetUserMbtiQueryKey = () => [`/api/mbti/users`]
+export const getGetUserMbtiQueryKey = () => [`/api/mbti/users`];
 
-export type GetUserMbtiInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getUserMbti>>>
-export type GetUserMbtiInfiniteQueryError = ErrorType<unknown>
+export type GetUserMbtiInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getUserMbti>>>;
+export type GetUserMbtiInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetUserMbtiInfinite = <
   TData = Awaited<ReturnType<typeof getUserMbti>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getUserMbti>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getUserMbti>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUserMbtiQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getGetUserMbtiQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserMbti>>> = ({ signal }) =>
-    getUserMbti(requestOptions, signal)
+    getUserMbti(requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getUserMbti>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetUserMbtiQueryResult = NonNullable<Awaited<ReturnType<typeof getUserMbti>>>
-export type GetUserMbtiQueryError = ErrorType<unknown>
+export type GetUserMbtiQueryResult = NonNullable<Awaited<ReturnType<typeof getUserMbti>>>;
+export type GetUserMbtiQueryError = ErrorType<unknown>;
 
 export const useGetUserMbti = <TData = Awaited<ReturnType<typeof getUserMbti>>, TError = ErrorType<unknown>>(options?: {
-  query?: UseQueryOptions<Awaited<ReturnType<typeof getUserMbti>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseQueryOptions<Awaited<ReturnType<typeof getUserMbti>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUserMbtiQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getGetUserMbtiQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserMbti>>> = ({ signal }) =>
-    getUserMbti(requestOptions, signal)
+    getUserMbti(requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getUserMbti>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 카테고리id를 통해 해당 카테고리에 게시글을 쓴 유저들의 mbti 순위(유저수)를 반환한다.
@@ -1658,15 +1743,15 @@ export const getUserMbtiFromCategory = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<UserMbti[]>({ url: `/api/mbti/category/${categoryId}`, method: "get", signal }, options)
-}
+  return customInstance<UserMbti[]>({ url: `/api/mbti/category/${categoryId}`, method: "get", signal }, options);
+};
 
-export const getGetUserMbtiFromCategoryQueryKey = (categoryId: number) => [`/api/mbti/category/${categoryId}`]
+export const getGetUserMbtiFromCategoryQueryKey = (categoryId: number) => [`/api/mbti/category/${categoryId}`];
 
 export type GetUserMbtiFromCategoryInfiniteQueryResult = NonNullable<
   Awaited<ReturnType<typeof getUserMbtiFromCategory>>
->
-export type GetUserMbtiFromCategoryInfiniteQueryError = ErrorType<unknown>
+>;
+export type GetUserMbtiFromCategoryInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetUserMbtiFromCategoryInfinite = <
   TData = Awaited<ReturnType<typeof getUserMbtiFromCategory>>,
@@ -1674,31 +1759,31 @@ export const useGetUserMbtiFromCategoryInfinite = <
 >(
   categoryId: number,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getUserMbtiFromCategory>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getUserMbtiFromCategory>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUserMbtiFromCategoryQueryKey(categoryId)
+  const queryKey = queryOptions?.queryKey ?? getGetUserMbtiFromCategoryQueryKey(categoryId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserMbtiFromCategory>>> = ({ signal }) =>
-    getUserMbtiFromCategory(categoryId, requestOptions, signal)
+    getUserMbtiFromCategory(categoryId, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getUserMbtiFromCategory>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!categoryId,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetUserMbtiFromCategoryQueryResult = NonNullable<Awaited<ReturnType<typeof getUserMbtiFromCategory>>>
-export type GetUserMbtiFromCategoryQueryError = ErrorType<unknown>
+export type GetUserMbtiFromCategoryQueryResult = NonNullable<Awaited<ReturnType<typeof getUserMbtiFromCategory>>>;
+export type GetUserMbtiFromCategoryQueryError = ErrorType<unknown>;
 
 export const useGetUserMbtiFromCategory = <
   TData = Awaited<ReturnType<typeof getUserMbtiFromCategory>>,
@@ -1706,28 +1791,28 @@ export const useGetUserMbtiFromCategory = <
 >(
   categoryId: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getUserMbtiFromCategory>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getUserMbtiFromCategory>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetUserMbtiFromCategoryQueryKey(categoryId)
+  const queryKey = queryOptions?.queryKey ?? getGetUserMbtiFromCategoryQueryKey(categoryId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserMbtiFromCategory>>> = ({ signal }) =>
-    getUserMbtiFromCategory(categoryId, requestOptions, signal)
+    getUserMbtiFromCategory(categoryId, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getUserMbtiFromCategory>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!categoryId,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 게시글의 id를 통해 베스트 댓글 목록을 가져온다.
@@ -1738,16 +1823,16 @@ export const getCommentList1 = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<GetCommentList1200>({ url: `/api/comments/best`, method: "get", params, signal }, options)
-}
+  return customInstance<GetCommentList1200>({ url: `/api/comments/best`, method: "get", params, signal }, options);
+};
 
 export const getGetCommentList1QueryKey = (params: GetCommentList1Params) => [
   `/api/comments/best`,
   ...(params ? [params] : [])
-]
+];
 
-export type GetCommentList1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getCommentList1>>>
-export type GetCommentList1InfiniteQueryError = ErrorType<unknown>
+export type GetCommentList1InfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getCommentList1>>>;
+export type GetCommentList1InfiniteQueryError = ErrorType<unknown>;
 
 export const useGetCommentList1Infinite = <
   TData = Awaited<ReturnType<typeof getCommentList1>>,
@@ -1755,121 +1840,121 @@ export const useGetCommentList1Infinite = <
 >(
   params: GetCommentList1Params,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getCommentList1>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getCommentList1>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCommentList1QueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getGetCommentList1QueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCommentList1>>> = ({ signal }) =>
-    getCommentList1(params, requestOptions, signal)
+    getCommentList1(params, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getCommentList1>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetCommentList1QueryResult = NonNullable<Awaited<ReturnType<typeof getCommentList1>>>
-export type GetCommentList1QueryError = ErrorType<unknown>
+export type GetCommentList1QueryResult = NonNullable<Awaited<ReturnType<typeof getCommentList1>>>;
+export type GetCommentList1QueryError = ErrorType<unknown>;
 
 export const useGetCommentList1 = <TData = Awaited<ReturnType<typeof getCommentList1>>, TError = ErrorType<unknown>>(
   params: GetCommentList1Params,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getCommentList1>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getCommentList1>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetCommentList1QueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getGetCommentList1QueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getCommentList1>>> = ({ signal }) =>
-    getCommentList1(params, requestOptions, signal)
+    getCommentList1(params, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getCommentList1>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
- * 카테고리의 카운트(인기도)순으로 반환한다. 조인을 하기 때문에 일반 리스트 반환보다 조금 느림
- * @summary 카테고리의 카운트(인기도)순으로 조회
+ * 카테고리의 카운트(인기도-게시글개수)순으로 반환한다. 조인을 하기 때문에 일반 리스트 반환보다 조금 느림
+ * @summary 카테고리의 카운트(인기도-게시글개수)순으로 조회
  */
 export const categoriesCount = (options?: SecondParameter<typeof customInstance>, signal?: AbortSignal) => {
-  return customInstance<CategoriesCount200>({ url: `/api/categories/popular`, method: "get", signal }, options)
-}
+  return customInstance<CategoriesCount200>({ url: `/api/categories/popular`, method: "get", signal }, options);
+};
 
-export const getCategoriesCountQueryKey = () => [`/api/categories/popular`]
+export const getCategoriesCountQueryKey = () => [`/api/categories/popular`];
 
-export type CategoriesCountInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof categoriesCount>>>
-export type CategoriesCountInfiniteQueryError = ErrorType<unknown>
+export type CategoriesCountInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof categoriesCount>>>;
+export type CategoriesCountInfiniteQueryError = ErrorType<unknown>;
 
 export const useCategoriesCountInfinite = <
   TData = Awaited<ReturnType<typeof categoriesCount>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof categoriesCount>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof categoriesCount>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getCategoriesCountQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getCategoriesCountQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof categoriesCount>>> = ({ signal }) =>
-    categoriesCount(requestOptions, signal)
+    categoriesCount(requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof categoriesCount>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type CategoriesCountQueryResult = NonNullable<Awaited<ReturnType<typeof categoriesCount>>>
-export type CategoriesCountQueryError = ErrorType<unknown>
+export type CategoriesCountQueryResult = NonNullable<Awaited<ReturnType<typeof categoriesCount>>>;
+export type CategoriesCountQueryError = ErrorType<unknown>;
 
 export const useCategoriesCount = <
   TData = Awaited<ReturnType<typeof categoriesCount>>,
   TError = ErrorType<unknown>
 >(options?: {
-  query?: UseQueryOptions<Awaited<ReturnType<typeof categoriesCount>>, TError, TData>
-  request?: SecondParameter<typeof customInstance>
+  query?: UseQueryOptions<Awaited<ReturnType<typeof categoriesCount>>, TError, TData>;
+  request?: SecondParameter<typeof customInstance>;
 }): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getCategoriesCountQueryKey()
+  const queryKey = queryOptions?.queryKey ?? getCategoriesCountQueryKey();
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof categoriesCount>>> = ({ signal }) =>
-    categoriesCount(requestOptions, signal)
+    categoriesCount(requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof categoriesCount>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 게시글을 상세 조회한다.
@@ -1880,98 +1965,98 @@ export const boardDetail = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<BoardDetail200>({ url: `/api/boards/${boardId}`, method: "get", signal }, options)
-}
+  return customInstance<BoardDetail200>({ url: `/api/boards/${boardId}`, method: "get", signal }, options);
+};
 
-export const getBoardDetailQueryKey = (boardId: number) => [`/api/boards/${boardId}`]
+export const getBoardDetailQueryKey = (boardId: number) => [`/api/boards/${boardId}`];
 
-export type BoardDetailInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof boardDetail>>>
-export type BoardDetailInfiniteQueryError = ErrorType<unknown>
+export type BoardDetailInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof boardDetail>>>;
+export type BoardDetailInfiniteQueryError = ErrorType<unknown>;
 
 export const useBoardDetailInfinite = <TData = Awaited<ReturnType<typeof boardDetail>>, TError = ErrorType<unknown>>(
   boardId: number,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof boardDetail>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof boardDetail>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getBoardDetailQueryKey(boardId)
+  const queryKey = queryOptions?.queryKey ?? getBoardDetailQueryKey(boardId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof boardDetail>>> = ({ signal }) =>
-    boardDetail(boardId, requestOptions, signal)
+    boardDetail(boardId, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof boardDetail>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!boardId,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type BoardDetailQueryResult = NonNullable<Awaited<ReturnType<typeof boardDetail>>>
-export type BoardDetailQueryError = ErrorType<unknown>
+export type BoardDetailQueryResult = NonNullable<Awaited<ReturnType<typeof boardDetail>>>;
+export type BoardDetailQueryError = ErrorType<unknown>;
 
 export const useBoardDetail = <TData = Awaited<ReturnType<typeof boardDetail>>, TError = ErrorType<unknown>>(
   boardId: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof boardDetail>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof boardDetail>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getBoardDetailQueryKey(boardId)
+  const queryKey = queryOptions?.queryKey ?? getBoardDetailQueryKey(boardId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof boardDetail>>> = ({ signal }) =>
-    boardDetail(boardId, requestOptions, signal)
+    boardDetail(boardId, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof boardDetail>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!boardId,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 게시글을 소프트 삭제한다.
  * @summary 게시글 소프트 삭제
  */
 export const boardDelete = (boardId: number, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<BoardDelete200>({ url: `/api/boards/${boardId}`, method: "delete" }, options)
-}
+  return customInstance<BoardDelete200>({ url: `/api/boards/${boardId}`, method: "delete" }, options);
+};
 
-export type BoardDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof boardDelete>>>
+export type BoardDeleteMutationResult = NonNullable<Awaited<ReturnType<typeof boardDelete>>>;
 
-export type BoardDeleteMutationError = ErrorType<unknown>
+export type BoardDeleteMutationError = ErrorType<unknown>;
 
 export const useBoardDelete = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof boardDelete>>, TError, { boardId: number }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof boardDelete>>, TError, { boardId: number }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof boardDelete>>, { boardId: number }> = (props) => {
-    const { boardId } = props ?? {}
+    const { boardId } = props ?? {};
 
-    return boardDelete(boardId, requestOptions)
-  }
+    return boardDelete(boardId, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof boardDelete>>, TError, { boardId: number }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 조건에 따라 미리보기 게시글을 조회한다.
@@ -1982,16 +2067,16 @@ export const getPreviewBoards = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<GetPreviewBoards200>({ url: `/api/boards/preview`, method: "get", params, signal }, options)
-}
+  return customInstance<GetPreviewBoards200>({ url: `/api/boards/preview`, method: "get", params, signal }, options);
+};
 
 export const getGetPreviewBoardsQueryKey = (params: GetPreviewBoardsParams) => [
   `/api/boards/preview`,
   ...(params ? [params] : [])
-]
+];
 
-export type GetPreviewBoardsInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getPreviewBoards>>>
-export type GetPreviewBoardsInfiniteQueryError = ErrorType<unknown>
+export type GetPreviewBoardsInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getPreviewBoards>>>;
+export type GetPreviewBoardsInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetPreviewBoardsInfinite = <
   TData = Awaited<ReturnType<typeof getPreviewBoards>>,
@@ -1999,55 +2084,55 @@ export const useGetPreviewBoardsInfinite = <
 >(
   params: GetPreviewBoardsParams,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getPreviewBoards>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getPreviewBoards>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetPreviewBoardsQueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getGetPreviewBoardsQueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getPreviewBoards>>> = ({ signal }) =>
-    getPreviewBoards(params, requestOptions, signal)
+    getPreviewBoards(params, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getPreviewBoards>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetPreviewBoardsQueryResult = NonNullable<Awaited<ReturnType<typeof getPreviewBoards>>>
-export type GetPreviewBoardsQueryError = ErrorType<unknown>
+export type GetPreviewBoardsQueryResult = NonNullable<Awaited<ReturnType<typeof getPreviewBoards>>>;
+export type GetPreviewBoardsQueryError = ErrorType<unknown>;
 
 export const useGetPreviewBoards = <TData = Awaited<ReturnType<typeof getPreviewBoards>>, TError = ErrorType<unknown>>(
   params: GetPreviewBoardsParams,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getPreviewBoards>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getPreviewBoards>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetPreviewBoardsQueryKey(params)
+  const queryKey = queryOptions?.queryKey ?? getGetPreviewBoardsQueryKey(params);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getPreviewBoards>>> = ({ signal }) =>
-    getPreviewBoards(params, requestOptions, signal)
+    getPreviewBoards(params, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getPreviewBoards>>, TError, TData>({
     queryKey,
     queryFn,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 하나의 밸런스 게임의 데이터를 자세히 받아온다.
@@ -2058,13 +2143,13 @@ export const getDetailBalance = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<BalanceRes>({ url: `/api/balances/${balanceId}`, method: "get", signal }, options)
-}
+  return customInstance<BalanceRes>({ url: `/api/balances/${balanceId}`, method: "get", signal }, options);
+};
 
-export const getGetDetailBalanceQueryKey = (balanceId: number) => [`/api/balances/${balanceId}`]
+export const getGetDetailBalanceQueryKey = (balanceId: number) => [`/api/balances/${balanceId}`];
 
-export type GetDetailBalanceInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getDetailBalance>>>
-export type GetDetailBalanceInfiniteQueryError = ErrorType<unknown>
+export type GetDetailBalanceInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getDetailBalance>>>;
+export type GetDetailBalanceInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetDetailBalanceInfinite = <
   TData = Awaited<ReturnType<typeof getDetailBalance>>,
@@ -2072,87 +2157,87 @@ export const useGetDetailBalanceInfinite = <
 >(
   balanceId: number,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getDetailBalance>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getDetailBalance>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetDetailBalanceQueryKey(balanceId)
+  const queryKey = queryOptions?.queryKey ?? getGetDetailBalanceQueryKey(balanceId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getDetailBalance>>> = ({ signal }) =>
-    getDetailBalance(balanceId, requestOptions, signal)
+    getDetailBalance(balanceId, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getDetailBalance>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!balanceId,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetDetailBalanceQueryResult = NonNullable<Awaited<ReturnType<typeof getDetailBalance>>>
-export type GetDetailBalanceQueryError = ErrorType<unknown>
+export type GetDetailBalanceQueryResult = NonNullable<Awaited<ReturnType<typeof getDetailBalance>>>;
+export type GetDetailBalanceQueryError = ErrorType<unknown>;
 
 export const useGetDetailBalance = <TData = Awaited<ReturnType<typeof getDetailBalance>>, TError = ErrorType<unknown>>(
   balanceId: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getDetailBalance>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getDetailBalance>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetDetailBalanceQueryKey(balanceId)
+  const queryKey = queryOptions?.queryKey ?? getGetDetailBalanceQueryKey(balanceId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getDetailBalance>>> = ({ signal }) =>
-    getDetailBalance(balanceId, requestOptions, signal)
+    getDetailBalance(balanceId, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getDetailBalance>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!balanceId,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 밸런스 게임을 소프트 삭제한다.
  * @summary [admin] 밸런스게임 삭제
  */
 export const deleteBalance = (balanceId: number, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<DeleteBalance200>({ url: `/api/balances/${balanceId}`, method: "delete" }, options)
-}
+  return customInstance<DeleteBalance200>({ url: `/api/balances/${balanceId}`, method: "delete" }, options);
+};
 
-export type DeleteBalanceMutationResult = NonNullable<Awaited<ReturnType<typeof deleteBalance>>>
+export type DeleteBalanceMutationResult = NonNullable<Awaited<ReturnType<typeof deleteBalance>>>;
 
-export type DeleteBalanceMutationError = ErrorType<unknown>
+export type DeleteBalanceMutationError = ErrorType<unknown>;
 
 export const useDeleteBalance = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteBalance>>, TError, { balanceId: number }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteBalance>>, TError, { balanceId: number }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteBalance>>, { balanceId: number }> = (props) => {
-    const { balanceId } = props ?? {}
+    const { balanceId } = props ?? {};
 
-    return deleteBalance(balanceId, requestOptions)
-  }
+    return deleteBalance(balanceId, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof deleteBalance>>, TError, { balanceId: number }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 특정 밸런스 게임에 대해 특정 사용자가 어디에 참여했는지 확인한다.
@@ -2163,13 +2248,16 @@ export const getWhereUserVote = (
   options?: SecondParameter<typeof customInstance>,
   signal?: AbortSignal
 ) => {
-  return customInstance<GetWhereUserVote200>({ url: `/api/balances/vote/${balanceId}`, method: "get", signal }, options)
-}
+  return customInstance<GetWhereUserVote200>(
+    { url: `/api/balances/vote/${balanceId}`, method: "get", signal },
+    options
+  );
+};
 
-export const getGetWhereUserVoteQueryKey = (balanceId: number) => [`/api/balances/vote/${balanceId}`]
+export const getGetWhereUserVoteQueryKey = (balanceId: number) => [`/api/balances/vote/${balanceId}`];
 
-export type GetWhereUserVoteInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getWhereUserVote>>>
-export type GetWhereUserVoteInfiniteQueryError = ErrorType<unknown>
+export type GetWhereUserVoteInfiniteQueryResult = NonNullable<Awaited<ReturnType<typeof getWhereUserVote>>>;
+export type GetWhereUserVoteInfiniteQueryError = ErrorType<unknown>;
 
 export const useGetWhereUserVoteInfinite = <
   TData = Awaited<ReturnType<typeof getWhereUserVote>>,
@@ -2177,176 +2265,181 @@ export const useGetWhereUserVoteInfinite = <
 >(
   balanceId: number,
   options?: {
-    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getWhereUserVote>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseInfiniteQueryOptions<Awaited<ReturnType<typeof getWhereUserVote>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetWhereUserVoteQueryKey(balanceId)
+  const queryKey = queryOptions?.queryKey ?? getGetWhereUserVoteQueryKey(balanceId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getWhereUserVote>>> = ({ signal }) =>
-    getWhereUserVote(balanceId, requestOptions, signal)
+    getWhereUserVote(balanceId, requestOptions, signal);
 
   const query = useInfiniteQuery<Awaited<ReturnType<typeof getWhereUserVote>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!balanceId,
     ...queryOptions
-  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseInfiniteQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
-export type GetWhereUserVoteQueryResult = NonNullable<Awaited<ReturnType<typeof getWhereUserVote>>>
-export type GetWhereUserVoteQueryError = ErrorType<unknown>
+export type GetWhereUserVoteQueryResult = NonNullable<Awaited<ReturnType<typeof getWhereUserVote>>>;
+export type GetWhereUserVoteQueryError = ErrorType<unknown>;
 
 export const useGetWhereUserVote = <TData = Awaited<ReturnType<typeof getWhereUserVote>>, TError = ErrorType<unknown>>(
   balanceId: number,
   options?: {
-    query?: UseQueryOptions<Awaited<ReturnType<typeof getWhereUserVote>>, TError, TData>
-    request?: SecondParameter<typeof customInstance>
+    query?: UseQueryOptions<Awaited<ReturnType<typeof getWhereUserVote>>, TError, TData>;
+    request?: SecondParameter<typeof customInstance>;
   }
 ): UseQueryResult<TData, TError> & { queryKey: QueryKey } => {
-  const { query: queryOptions, request: requestOptions } = options ?? {}
+  const { query: queryOptions, request: requestOptions } = options ?? {};
 
-  const queryKey = queryOptions?.queryKey ?? getGetWhereUserVoteQueryKey(balanceId)
+  const queryKey = queryOptions?.queryKey ?? getGetWhereUserVoteQueryKey(balanceId);
 
   const queryFn: QueryFunction<Awaited<ReturnType<typeof getWhereUserVote>>> = ({ signal }) =>
-    getWhereUserVote(balanceId, requestOptions, signal)
+    getWhereUserVote(balanceId, requestOptions, signal);
 
   const query = useQuery<Awaited<ReturnType<typeof getWhereUserVote>>, TError, TData>({
     queryKey,
     queryFn,
     enabled: !!balanceId,
     ...queryOptions
-  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey }
+  }) as UseQueryResult<TData, TError> & { queryKey: QueryKey };
 
-  query.queryKey = queryKey
+  query.queryKey = queryKey;
 
-  return query
-}
+  return query;
+};
 
 /**
  * 댓글 좋아요 취소
  * @summary 댓글 좋아요 취소
  */
 export const commentUnLike = (commentId: number, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<boolean>({ url: `/api/like/comment/${commentId}`, method: "delete" }, options)
-}
+  return customInstance<boolean>({ url: `/api/like/comment/${commentId}`, method: "delete" }, options);
+};
 
-export type CommentUnLikeMutationResult = NonNullable<Awaited<ReturnType<typeof commentUnLike>>>
+export type CommentUnLikeMutationResult = NonNullable<Awaited<ReturnType<typeof commentUnLike>>>;
 
-export type CommentUnLikeMutationError = ErrorType<unknown>
+export type CommentUnLikeMutationError = ErrorType<unknown>;
 
 export const useCommentUnLike = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof commentUnLike>>, TError, { commentId: number }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof commentUnLike>>, TError, { commentId: number }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof commentUnLike>>, { commentId: number }> = (props) => {
-    const { commentId } = props ?? {}
+    const { commentId } = props ?? {};
 
-    return commentUnLike(commentId, requestOptions)
-  }
+    return commentUnLike(commentId, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof commentUnLike>>, TError, { commentId: number }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 게시글 좋아요 취소
  * @summary 게시글 좋아요 취소
  */
 export const boardUnLike = (boardId: number, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<boolean>({ url: `/api/like/board/${boardId}`, method: "delete" }, options)
-}
+  return customInstance<boolean>({ url: `/api/like/board/${boardId}`, method: "delete" }, options);
+};
 
-export type BoardUnLikeMutationResult = NonNullable<Awaited<ReturnType<typeof boardUnLike>>>
+export type BoardUnLikeMutationResult = NonNullable<Awaited<ReturnType<typeof boardUnLike>>>;
 
-export type BoardUnLikeMutationError = ErrorType<unknown>
+export type BoardUnLikeMutationError = ErrorType<unknown>;
 
 export const useBoardUnLike = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof boardUnLike>>, TError, { boardId: number }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof boardUnLike>>, TError, { boardId: number }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof boardUnLike>>, { boardId: number }> = (props) => {
-    const { boardId } = props ?? {}
+    const { boardId } = props ?? {};
 
-    return boardUnLike(boardId, requestOptions)
-  }
+    return boardUnLike(boardId, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof boardUnLike>>, TError, { boardId: number }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 댓글을 소프트 삭제한다.
  * @summary 댓글 소프트 삭제
  */
 export const deleteComment = (commentId: number, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<DeleteComment200>({ url: `/api/comments/${commentId}`, method: "delete" }, options)
-}
+  return customInstance<DeleteComment200>({ url: `/api/comments/${commentId}`, method: "delete" }, options);
+};
 
-export type DeleteCommentMutationResult = NonNullable<Awaited<ReturnType<typeof deleteComment>>>
+export type DeleteCommentMutationResult = NonNullable<Awaited<ReturnType<typeof deleteComment>>>;
 
-export type DeleteCommentMutationError = ErrorType<unknown>
+export type DeleteCommentMutationError = ErrorType<unknown>;
 
 export const useDeleteComment = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteComment>>, TError, { commentId: number }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<Awaited<ReturnType<typeof deleteComment>>, TError, { commentId: number }, TContext>;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteComment>>, { commentId: number }> = (props) => {
-    const { commentId } = props ?? {}
+    const { commentId } = props ?? {};
 
-    return deleteComment(commentId, requestOptions)
-  }
+    return deleteComment(commentId, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof deleteComment>>, TError, { commentId: number }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};
 
 /**
  * 신고 가능한 종류 중 하나를 삭제한다.
  * @summary 신고 종류 제거
  */
 export const insertBlameType2 = (blameTypeId: number, options?: SecondParameter<typeof customInstance>) => {
-  return customInstance<InsertBlameType2200>({ url: `/api/blame/type/${blameTypeId}`, method: "delete" }, options)
-}
+  return customInstance<InsertBlameType2200>({ url: `/api/blame/type/${blameTypeId}`, method: "delete" }, options);
+};
 
-export type InsertBlameType2MutationResult = NonNullable<Awaited<ReturnType<typeof insertBlameType2>>>
+export type InsertBlameType2MutationResult = NonNullable<Awaited<ReturnType<typeof insertBlameType2>>>;
 
-export type InsertBlameType2MutationError = ErrorType<unknown>
+export type InsertBlameType2MutationError = ErrorType<unknown>;
 
 export const useInsertBlameType2 = <TError = ErrorType<unknown>, TContext = unknown>(options?: {
-  mutation?: UseMutationOptions<Awaited<ReturnType<typeof insertBlameType2>>, TError, { blameTypeId: number }, TContext>
-  request?: SecondParameter<typeof customInstance>
+  mutation?: UseMutationOptions<
+    Awaited<ReturnType<typeof insertBlameType2>>,
+    TError,
+    { blameTypeId: number },
+    TContext
+  >;
+  request?: SecondParameter<typeof customInstance>;
 }) => {
-  const { mutation: mutationOptions, request: requestOptions } = options ?? {}
+  const { mutation: mutationOptions, request: requestOptions } = options ?? {};
 
   const mutationFn: MutationFunction<Awaited<ReturnType<typeof insertBlameType2>>, { blameTypeId: number }> = (
     props
   ) => {
-    const { blameTypeId } = props ?? {}
+    const { blameTypeId } = props ?? {};
 
-    return insertBlameType2(blameTypeId, requestOptions)
-  }
+    return insertBlameType2(blameTypeId, requestOptions);
+  };
 
   return useMutation<Awaited<ReturnType<typeof insertBlameType2>>, TError, { blameTypeId: number }, TContext>(
     mutationFn,
     mutationOptions
-  )
-}
+  );
+};

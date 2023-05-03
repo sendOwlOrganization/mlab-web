@@ -6,7 +6,7 @@
  */
 
 export interface BoardLikeResponse {
-  id?: number
-  userId?: number
-  boardId?: number
+  id?: number;
+  userId?: number;
+  boardId?: number;
 }

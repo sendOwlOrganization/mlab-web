@@ -5,4 +5,4 @@
  * OpenAPI spec version: v0
  */
 
-export type BoardDelete200 = { [key: string]: any }
+export type BoardDelete200 = { [key: string]: any };

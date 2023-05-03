@@ -6,12 +6,12 @@
  */
 
 export interface ListRes {
-  id?: number
-  title?: string
-  nickname?: string
-  regDate?: string
-  hit?: number
-  preview?: string
-  likeCount?: number
-  commentCount?: number
+  id?: number;
+  title?: string;
+  nickname?: string;
+  regDate?: string;
+  hit?: number;
+  preview?: string;
+  likeCount?: number;
+  commentCount?: number;
 }

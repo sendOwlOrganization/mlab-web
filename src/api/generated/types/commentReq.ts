@@ -7,9 +7,9 @@
 
 export interface CommentReq {
   /** 게시글 id */
-  boardId?: number
+  boardId?: number;
   /** 부모 댓글 id */
-  parentId?: number | null
+  parentId?: number | null;
   /** 댓글 내용 */
-  content?: string
+  content?: string;
 }

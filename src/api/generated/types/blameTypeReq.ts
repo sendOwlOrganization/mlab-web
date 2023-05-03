@@ -6,5 +6,5 @@
  */
 
 export interface BlameTypeReq {
-  blameTypeName?: string
+  blameTypeName?: string;
 }

@@ -7,7 +7,7 @@
 
 export interface VoteBalanceReq {
   /** 밸런스 게임 id */
-  balanceId?: number
+  balanceId?: number;
   /** 밸런스 게임 선택 항목 id */
-  balanceOptionId?: number
+  balanceOptionId?: number;
 }
