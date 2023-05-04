@@ -1,3 +1,4 @@
+import "@/mds/style.linaria.global";
 import { Preview } from "@storybook/react";
 
 const preview: Preview = {

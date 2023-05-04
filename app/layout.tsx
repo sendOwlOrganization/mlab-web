@@ -1,5 +1,5 @@
+import "@/mds/style.linaria.global";
 import { ReactNode } from "react";
-import "./globals.css";
 import Providers from "./providers";
 
 export const metadata = {
