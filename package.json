@@ -18,9 +18,7 @@
     "build-storybook": "storybook build",
     "chromatic": "chromatic --exit-zero-on-changes",
     "gen": "rm -r src/api/generated && orval",
-    "tt:global": "npx token-transformer tokens.json ./src/tokens/global.json global",
-    "tt:light": "npx token-transformer tokens.json ./src/tokens/light.json light",
-    "tt:dark": "npx token-transformer tokens.json ./src/tokens/dark.json dark"
+    "tt": "node tt.config.js"
   },
   "husky": {
     "hooks": {
