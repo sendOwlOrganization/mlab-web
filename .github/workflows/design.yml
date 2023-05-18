@@ -25,10 +25,7 @@ jobs:
       - name: Commit files
         run: |
             npm install
-            npm install -g token-transformer
-            npm run tt:global
-            npm run tt:light
-            npm run tt:dark
+            npm run tt
             git config --global user.name "$GITHUB_ACTOR"
             git config --global user.email "${{ steps.get-email.outputs.email }}"
             git add .
