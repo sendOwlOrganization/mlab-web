@@ -18,7 +18,7 @@
     "build-storybook": "storybook build",
     "chromatic": "chromatic --exit-zero-on-changes",
     "gen": "rm -r src/api/generated && orval",
-    "tt": "node tt.config.js"
+    "tt": "node scripts/tt.js"
   },
   "husky": {
     "hooks": {

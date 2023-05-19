@@ -4,7 +4,7 @@ const path = require("path");
 const { transformTokens } = require("token-transformer");
 
 // 추출 대상 파일 경로
-const filePath = "src/tokens";
+const filePath = "../src/tokens";
 const dir = path.join(__dirname, filePath);
 // 만약 없다면 생성
 if (!fs.existsSync(dir)) {
@@ -28,7 +28,7 @@ fs.readFile("tokens.json", "utf8", (err, data) => {
     );
 
     // 파일 생성
-    fs.writeFileSync(`${filePath}/${key}.json`, JSON.stringify(resolved), (err) => {
+    fs.writeFileSync(`${dir}/${key}.json`, JSON.stringify(resolved), (err) => {
       if (err) throw err;
     });
   });
