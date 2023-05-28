@@ -10,7 +10,7 @@ export interface RadioSelectItem extends Pick<InputHTMLAttributes<HTMLInputEleme
   text: string | number;
 }
 
-interface RadioSelectProps {
+export interface RadioSelectProps {
   name: string;
   items: RadioSelectItem[];
   value?: RadioSelectItem;
