@@ -10,8 +10,8 @@ export default meta;
 
 type Story = StoryObj<typeof RadioSelect>;
 
-const RadioSelectWithHooks = (props: RadioSelectProps) => {
-  const [value, setValue] = useState<RadioSelectItem>();
+const RadioSelectWithHooks = <T,>(props: RadioSelectProps<T>) => {
+  const [value, setValue] = useState<RadioSelectItem<T>>();
 
   return <RadioSelect {...props} value={value} onChange={setValue} />;
 };

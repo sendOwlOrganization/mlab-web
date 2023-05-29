@@ -11,9 +11,9 @@ export default meta;
 type Story = StoryObj<typeof Age>;
 
 const AgeWithHooks = () => {
-  const ageRef = useRef<{ current: number }>();
+  const ageRef = useRef<number>();
 
-  return <Age updateAge={(age) => (ageRef.current = age)} />;
+  return <Age updateAge={(age: number) => (ageRef.current = age)} />;
 };
 
 export const Default: Story = {

@@ -1,23 +1,23 @@
-import { InputHTMLAttributes } from "react";
 import { styled } from "@linaria/react";
 import { theme } from "@/mds/theme";
 
 // icons
 import RadioButtonIcon from "@/components/icons/RadioButtonIcon";
 
-export interface RadioSelectItem extends Pick<InputHTMLAttributes<HTMLInputElement>, "value"> {
+export interface RadioSelectItem<T> {
+  value: T;
   key?: string;
   text: string | number;
 }
 
-export interface RadioSelectProps {
+export interface RadioSelectProps<T> {
   name: string;
-  items: RadioSelectItem[];
-  value?: RadioSelectItem;
-  onChange?: (value: RadioSelectItem) => void;
+  items: RadioSelectItem<T>[];
+  value?: RadioSelectItem<T>;
+  onChange?: (value: RadioSelectItem<T>) => void;
 }
 
-const RadioSelect = ({ value, items, name, onChange }: RadioSelectProps) => {
+const RadioSelect = <T,>({ value, items, name, onChange }: RadioSelectProps<T>) => {
   return (
     <S.RadioList>
       {items.map((item) => {

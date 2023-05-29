@@ -6,18 +6,18 @@ import RadioSelect, { RadioSelectItem } from "@/components/radio/RadioSelect";
 import Typography from "@/components/typography/Typography";
 
 export interface AgeProps {
-  updateAge: (age: any) => void;
+  updateAge: (age: number) => void;
 }
 
-const ages: RadioSelectItem[] = Array.from({ length: 6 }, (_, index) => ({
+const ages: RadioSelectItem<number>[] = Array.from({ length: 6 }, (_, index) => ({
   text: `${(index + 1) * 10}대`,
   value: (index + 1) * 10
 }));
 
 const Age = ({ updateAge }: AgeProps) => {
-  const [age, setAge] = useState<RadioSelectItem>();
+  const [age, setAge] = useState<RadioSelectItem<number>>();
 
-  const handleChange = (item: RadioSelectItem) => {
+  const handleChange = (item: RadioSelectItem<number>) => {
     setAge(item);
     updateAge && updateAge(item.value);
   };
