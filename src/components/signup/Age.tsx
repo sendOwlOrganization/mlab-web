@@ -1,9 +1,10 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useState } from "react";
 import { styled } from "@linaria/react";
 
 // components
 import RadioSelect, { RadioSelectItem } from "@/components/radio/RadioSelect";
 import Typography from "@/components/typography/Typography";
+import Fade from "@/components/fade/Fade";
 
 export interface AgeProps {
   updateAge: (age: number) => void;
@@ -43,25 +44,5 @@ export default Age;
 const S = {
   Box: styled("div")`
     padding: 1rem 1rem 3.375rem 1rem;
-  `,
-  Fade: styled("div")<{ isVisible: boolean }>`
-    opacity: ${({ isVisible }) => (isVisible ? 1 : 0)};
-    transition: opacity 0.7s ease-in-out;
   `
-};
-
-const Fade = ({ children, timeout }: { children: ReactNode; timeout: number }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const apper = setTimeout(() => {
-      setIsVisible(true);
-    }, timeout);
-
-    return () => {
-      clearTimeout(apper);
-    };
-  }, []);
-
-  return <S.Fade isVisible={isVisible}>{children}</S.Fade>;
 };
