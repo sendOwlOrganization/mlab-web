@@ -1,6 +1,6 @@
 import { styled } from "@linaria/react";
 import { theme } from "@/mds/theme";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 
 // components
 import Typography from "@/components/typography/Typography";
@@ -15,15 +15,13 @@ interface AutocompleteProps {
 }
 
 const Autocomplete = ({ query, words, onClick, notFoundMessage, renderWord, min = 1 }: AutocompleteProps) => {
-  const elements = useMemo(() => {
-    return words
-      .filter((w) => query.length >= min && w.includes(query))
-      .map((word, i) => (
-        <S.ListItem key={`${word}-${i}`} onClick={() => onClick(word)}>
-          {renderWord ? renderWord(word) : word}
-        </S.ListItem>
-      ));
-  }, [query, words, onClick, renderWord, min]);
+  const elements = words
+    .filter((w) => query.length >= min && w.includes(query))
+    .map((word, i) => (
+      <S.ListItem key={`${word}-${i}`} onClick={() => onClick(word)}>
+        {renderWord ? renderWord(word) : word}
+      </S.ListItem>
+    ));
 
   return elements.length ? (
     <S.List>{elements}</S.List>
