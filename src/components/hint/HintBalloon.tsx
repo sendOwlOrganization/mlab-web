@@ -2,27 +2,22 @@ import { styled } from "@linaria/react";
 import { theme } from "@/mds/theme";
 import { css } from "@linaria/core";
 
-// hooks
-import useFade from "@/hooks/useFade";
-
-interface HintBalloonProps {
-  open: boolean;
+export interface HintBalloonProps {
   align: "left" | "center" | "right";
   location: "up" | "down";
   children: React.ReactNode;
   bgColor?: string;
   color?: string;
+  className?: string;
 }
 
-const HintBalloon = ({ open, children, align, location, ...props }: HintBalloonProps) => {
-  const { FadeStyle, fadeClassname } = useFade({ useDelay: true, timeout: 300 });
-
-  return open ? (
-    <S.Container className={`${FadeStyle} ${fadeClassname}`} bgColor={props.bgColor}>
+const HintBalloon = ({ children, align, location, className, ...props }: HintBalloonProps) => {
+  return (
+    <S.Container className={className} bgColor={props.bgColor}>
       <S.TooltipIcon className={`${TooltipIconPosition} ${align} ${location}`} />
       <S.TooltipContnet {...props}>{children}</S.TooltipContnet>
     </S.Container>
-  ) : null;
+  );
 };
 
 export default HintBalloon;
