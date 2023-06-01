@@ -10,15 +10,17 @@ interface HintBalloonProps {
   align: "left" | "center" | "right";
   location: "up" | "down";
   children: React.ReactNode;
+  bgColor?: string;
+  color?: string;
 }
 
-const HintBalloon = ({ open, children, align, location }: HintBalloonProps) => {
+const HintBalloon = ({ open, children, align, location, ...props }: HintBalloonProps) => {
   const { FadeStyle, fadeClassname } = useFade({ useDelay: true, timeout: 300 });
 
   return open ? (
-    <S.Container className={`${FadeStyle} ${fadeClassname}`}>
+    <S.Container className={`${FadeStyle} ${fadeClassname}`} bgColor={props.bgColor}>
       <S.TooltipIcon className={`${TooltipIconPosition} ${align} ${location}`} />
-      <S.TooltipContnet>{children}</S.TooltipContnet>
+      <S.TooltipContnet {...props}>{children}</S.TooltipContnet>
     </S.Container>
   ) : null;
 };
@@ -26,20 +28,21 @@ const HintBalloon = ({ open, children, align, location }: HintBalloonProps) => {
 export default HintBalloon;
 
 const S = {
-  Container: styled("div")`
+  Container: styled("div")<{ bgColor?: string }>`
+    border: ${({ bgColor }) => bgColor ?? "#000"};
     position: relative;
     display: inline-block;
   `,
   TooltipIcon: styled("div")`
     position: absolute;
   `,
-  TooltipContnet: styled("p")`
+  TooltipContnet: styled("p")<{ bgColor?: string; color?: string }>`
     margin: 0 0 1rem 0;
     min-width: 0.1rem;
     border-radius: 1rem;
     padding: 0.25rem 0.625rem;
-    background-color: #000;
-    color: ${theme.palette.colors.gray[100]};
+    background-color: ${({ bgColor }) => bgColor ?? "#000"};
+    color: ${({ color }) => color ?? theme.palette.colors.gray[100]};
   `
 };
 
@@ -54,15 +57,15 @@ const TooltipIconPosition = css`
     right: 15%;
   }
   &.up {
-    border-bottom: 10px solid black;
-    border-bottomcolor: inherit;
+    border-bottom: 10px solid;
+    border-bottom-color: inherit;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     top: -0.625rem;
   }
   &.down {
-    border-top: 10px solid black;
-    border-topcolor: inherit;
+    border-top: 10px solid;
+    border-top-color: inherit;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     bottom: 0.4rem;
