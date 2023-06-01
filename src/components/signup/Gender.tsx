@@ -4,7 +4,9 @@ import { styled } from "@linaria/react";
 // components
 import RadioSelect, { RadioSelectItem } from "@/components/radio/RadioSelect";
 import Typography from "@/components/typography/Typography";
-import Fade from "@/components/fade/Fade";
+
+// hooks
+import useFade from "@/hooks/useFade";
 
 export interface GenderProps {
   updateGender: (age: string) => void;
@@ -27,6 +29,8 @@ const gneders = [
 
 const Gender = ({ updateGender }: GenderProps) => {
   const [gender, setGender] = useState<RadioSelectItem<string>>();
+  const { FadeStyle, fadeClassname: fadeClassname300 } = useFade({ useDelay: true, timeout: 300 });
+  const { fadeClassname: fadeClassname500 } = useFade({ useDelay: true, timeout: 500 });
 
   const handleChange = (item: RadioSelectItem<string>) => {
     setGender(item);
@@ -37,12 +41,10 @@ const Gender = ({ updateGender }: GenderProps) => {
     <section>
       {/* TODO Typography 세팅 후 설정 */}
       <S.Box>
-        <Fade timeout={300}>
-          <Typography>성별을 선택해 주세요</Typography>
-        </Fade>
-        <Fade timeout={500}>
-          <Typography>해당 정보는 인사이트에 활용되며, 공개되지 않아요</Typography>
-        </Fade>
+        <Typography className={`${FadeStyle} ${fadeClassname300}`}>성별을 선택해 주세요</Typography>
+        <Typography className={`${FadeStyle} ${fadeClassname500}`}>
+          해당 정보는 인사이트에 활용되며, 공개되지 않아요
+        </Typography>
       </S.Box>
       <RadioSelect items={gneders} name="gender-select" value={gender} onChange={handleChange} />
     </section>

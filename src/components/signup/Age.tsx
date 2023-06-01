@@ -4,7 +4,9 @@ import { styled } from "@linaria/react";
 // components
 import RadioSelect, { RadioSelectItem } from "@/components/radio/RadioSelect";
 import Typography from "@/components/typography/Typography";
-import Fade from "@/components/fade/Fade";
+
+// hooks
+import useFade from "@/hooks/useFade";
 
 export interface AgeProps {
   updateAge: (age: number) => void;
@@ -17,6 +19,8 @@ const ages: RadioSelectItem<number>[] = Array.from({ length: 6 }, (_, index) => 
 
 const Age = ({ updateAge }: AgeProps) => {
   const [age, setAge] = useState<RadioSelectItem<number>>();
+  const { FadeStyle, fadeClassname: fadeClassname300 } = useFade({ useDelay: true, timeout: 300 });
+  const { fadeClassname: fadeClassname500 } = useFade({ useDelay: true, timeout: 500 });
 
   const handleChange = (item: RadioSelectItem<number>) => {
     setAge(item);
@@ -27,12 +31,8 @@ const Age = ({ updateAge }: AgeProps) => {
     <section>
       {/* TODO Typography 세팅 후 설정 */}
       <S.Box>
-        <Fade timeout={300}>
-          <Typography>서비스 이용을 위해</Typography>
-        </Fade>
-        <Fade timeout={500}>
-          <Typography>연령대를 선택해 주세요</Typography>
-        </Fade>
+        <Typography className={`${FadeStyle} ${fadeClassname300}`}>서비스 이용을 위해</Typography>
+        <Typography className={`${FadeStyle} ${fadeClassname500}`}>연령대를 선택해 주세요</Typography>
       </S.Box>
       <RadioSelect items={ages} name="age-select" value={age} onChange={handleChange} />
     </section>

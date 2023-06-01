@@ -4,8 +4,10 @@ import { ChangeEvent } from "react";
 // components
 import Autocomplete from "@/components/autocomplete/Autocomplete";
 import TextField from "@/components/input/TextField";
-import Fade from "@/components/fade/Fade";
 import Typography from "@/components/typography/Typography";
+
+// hooks
+import useFade from "@/hooks/useFade";
 
 // mocks
 import { mbtiDescription, mbtiList, mbtiListString } from "@/mocks/mbti";
@@ -21,6 +23,9 @@ interface MbtiProps {
 
 // TODO Typography 세팅 후 설정
 const Mbti = ({ mbti, setMbti }: MbtiProps) => {
+  const { FadeStyle, fadeClassname: fadeClassname300 } = useFade({ useDelay: true, timeout: 300 });
+  const { fadeClassname: fadeClassname500 } = useFade({ useDelay: true, timeout: 500 });
+
   const handleChangeMbti = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toUpperCase().slice(0, 4);
     setMbti(value);
@@ -29,12 +34,8 @@ const Mbti = ({ mbti, setMbti }: MbtiProps) => {
   return (
     <section>
       <S.Box>
-        <Fade timeout={300}>
-          <Typography>만나서 반가워요 :)</Typography>
-        </Fade>
-        <Fade timeout={500}>
-          <Typography>본인의 MBTI를 입력해 주세요</Typography>
-        </Fade>
+        <Typography className={`${FadeStyle} ${fadeClassname300}`}>만나서 반가워요 :)</Typography>
+        <Typography className={`${FadeStyle} ${fadeClassname500}`}>본인의 MBTI를 입력해 주세요</Typography>
         <TextField
           value={mbti}
           onChange={handleChangeMbti}
