@@ -44,6 +44,7 @@ const S = {
     padding: 8px;
     border-radius: 16px;
     border: none;
+    color: #000000;
     background-color: #ffffff;
     width: 100%;
     cursor: pointer;
