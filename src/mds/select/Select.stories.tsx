@@ -3,7 +3,7 @@ import { useArgs } from "@storybook/preview-api";
 import type { Meta, StoryObj } from "@storybook/react";
 
 const meta: Meta<typeof Select> = {
-  title: "components/select/Select",
+  title: "mds/select",
   component: Select
 };
 export default meta;
