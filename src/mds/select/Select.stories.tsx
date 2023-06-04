@@ -1,4 +1,4 @@
-import Select from "@/components/select/Select";
+import Select from "@/mds/select/Select";
 import { useArgs } from "@storybook/preview-api";
 import type { Meta, StoryObj } from "@storybook/react";
 

@@ -1,5 +1,5 @@
-import { SelectStateContext } from "@/components/select/SelectContext";
-import { useSelect } from "@/components/select/useSelect";
+import { SelectStateContext } from "@/mds/select/SelectContext";
+import { useSelect } from "@/mds/select/useSelect";
 import { theme } from "@/mds/theme";
 import { styled } from "@linaria/react";
 import { PropsWithChildren, useId, useState } from "react";
