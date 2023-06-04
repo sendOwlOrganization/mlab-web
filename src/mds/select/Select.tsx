@@ -1,7 +1,8 @@
+import Icon from "@/mds/icons/Icon";
 import { SelectStateContext } from "@/mds/select/SelectContext";
 import { useSelect } from "@/mds/select/useSelect";
 import { theme } from "@/mds/theme";
-import { styled } from "@linaria/react";
+import { css } from "@linaria/core";
 import { PropsWithChildren, useId, useState } from "react";
 
 type SelectProps = {
@@ -16,19 +17,21 @@ const Select = ({ value, onChange, children }: PropsWithChildren<SelectProps>) =
 
   return (
     <SelectStateContext.Provider value={{ open, value, setOpen, setValue: onChange }}>
-      <S.Container>
-        <S.Button
+      <div className={C.container}>
+        <button
+          className={C.button}
           id={buttonId}
           aria-haspopup={true}
           aria-controls={selectId}
           aria-expanded={open}
           onClick={() => setOpen(!open)}>
           {value}
-        </S.Button>
-        <S.Items id={selectId} data-open={open} aria-labelledby={buttonId} role={"listbox"}>
+          <Icon name={"ArrowUp"} className={C.buttonIcon} data-open={open} />
+        </button>
+        <div className={C.itemList} id={selectId} data-open={open} aria-labelledby={buttonId} role={"listbox"}>
           {children}
-        </S.Items>
-      </S.Container>
+        </div>
+      </div>
     </SelectStateContext.Provider>
   );
 };
@@ -42,22 +45,26 @@ const SelectItem = ({ children, value, disabled }: SelectItemProps) => {
   const { value: selectedValue, setValue, setOpen } = useSelect();
   const isSelected = value === selectedValue;
   return (
-    <S.Item
+    <div
+      className={C.item}
       role={"option"}
+      tabIndex={0}
+      aria-selected={isSelected}
       data-selected={isSelected}
       onClick={() => {
         setValue(value);
         setOpen(false);
       }}>
+      {isSelected && <Icon name={"Check"} fill={theme.palette.primary} />}
       {children}
-    </S.Item>
+    </div>
   );
 };
 
 Select.Item = SelectItem;
 
-const S = {
-  Container: styled("div")`
+const C = {
+  container: css`
     width: fit-content;
     display: flex;
     align-items: center;
@@ -72,7 +79,7 @@ const S = {
       border-color: ${theme.palette.primary};
     }
   `,
-  Button: styled("button")`
+  button: css`
     cursor: pointer;
     border: none;
     background-color: transparent;
@@ -82,7 +89,14 @@ const S = {
     align-items: center;
     gap: 8px;
   `,
-  Items: styled("ol")`
+  buttonIcon: css`
+    transform: rotate(180deg);
+    transition: transform 0.2s ease-in-out;
+    &[data-open="true"] {
+      transform: rotate(0deg);
+    }
+  `,
+  itemList: css`
     top: calc(100% + 8px);
     left: 0;
     position: absolute;
@@ -98,7 +112,10 @@ const S = {
       display: none;
     }
   `,
-  Item: styled("li")`
+  item: css`
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 6px 12px;
     &[data-selected="true"] {
       color: ${theme.palette.primary};

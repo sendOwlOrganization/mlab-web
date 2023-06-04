@@ -1,6 +1,7 @@
 import { ArrowUp } from "@/mds/icons/ArrowUpIcon";
 import { Check } from "@/mds/icons/CheckIcon";
-import { css } from "@linaria/core";
+import { css, cx } from "@linaria/core";
+import { ComponentProps } from "react";
 
 const IconMap = {
   ArrowUp,
@@ -11,19 +12,21 @@ export const icons = Object.keys(IconMap);
 
 type IconName = keyof typeof IconMap;
 
-interface IconProps {
+interface IconProps extends ComponentProps<"svg"> {
   name: IconName;
 }
 
-const Icon = ({ name }: IconProps) => {
+const Icon = ({ name, className, ...props }: IconProps) => {
   const SvgComponent = IconMap[name];
-  return <SvgComponent className={svgClass} xmlns="http://www.w3.org/2000/svg" />;
+  return <SvgComponent className={cx(C.svg, className)} xmlns="http://www.w3.org/2000/svg" {...props} />;
 };
 
-const svgClass = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+const C = {
+  svg: css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `
+};
 
 export default Icon;
