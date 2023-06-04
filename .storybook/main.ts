@@ -61,7 +61,7 @@ const withLinaria = (config: Configuration) => {
 };
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
   staticDirs: ["../public"],
   addons: [
     "@storybook/addon-links",
