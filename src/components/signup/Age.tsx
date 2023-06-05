@@ -19,8 +19,8 @@ const ages: RadioSelectItem<number>[] = Array.from({ length: 6 }, (_, index) => 
 
 const Age = ({ updateAge }: AgeProps) => {
   const [age, setAge] = useState<RadioSelectItem<number>>();
-  const { FadeStyle, fadeClassname: fadeClassname300 } = useFade({ useDelay: true, timeout: 300 });
-  const { fadeClassname: fadeClassname500 } = useFade({ useDelay: true, timeout: 500 });
+  const { className: fadeClassName300 } = useFade({ timeout: 300 });
+  const { className: fadeClassName500 } = useFade();
 
   const handleChange = (item: RadioSelectItem<number>) => {
     setAge(item);
@@ -31,8 +31,8 @@ const Age = ({ updateAge }: AgeProps) => {
     <section>
       {/* TODO Typography 세팅 후 설정 */}
       <S.Box>
-        <Typography className={`${FadeStyle} ${fadeClassname300}`}>서비스 이용을 위해</Typography>
-        <Typography className={`${FadeStyle} ${fadeClassname500}`}>연령대를 선택해 주세요</Typography>
+        <Typography className={fadeClassName300}>서비스 이용을 위해</Typography>
+        <Typography className={fadeClassName500}>연령대를 선택해 주세요</Typography>
       </S.Box>
       <RadioSelect items={ages} name="age-select" value={age} onChange={handleChange} />
     </section>

@@ -21,9 +21,9 @@ export const Default: Story = {
 };
 
 const HintBalloonWithHooks = (props: HintBalloonProps) => {
-  const { FadeStyle, fadeClassname } = useFade({ useDelay: true, timeout: 1000 });
+  const { className } = useFade({ timeout: 1000 });
 
-  return <HintBalloon className={`${FadeStyle} ${fadeClassname}`} {...props} />;
+  return <HintBalloon className={className} {...props} />;
 };
 
 export const WithFadeHook: Story = {

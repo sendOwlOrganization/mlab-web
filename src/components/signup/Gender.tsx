@@ -29,8 +29,8 @@ const gneders = [
 
 const Gender = ({ updateGender }: GenderProps) => {
   const [gender, setGender] = useState<RadioSelectItem<string>>();
-  const { FadeStyle, fadeClassname: fadeClassname300 } = useFade({ useDelay: true, timeout: 300 });
-  const { fadeClassname: fadeClassname500 } = useFade({ useDelay: true, timeout: 500 });
+  const { className: fadeClassName300 } = useFade({ timeout: 300 });
+  const { className: fadeClassName500 } = useFade();
 
   const handleChange = (item: RadioSelectItem<string>) => {
     setGender(item);
@@ -41,10 +41,8 @@ const Gender = ({ updateGender }: GenderProps) => {
     <section>
       {/* TODO Typography 세팅 후 설정 */}
       <S.Box>
-        <Typography className={`${FadeStyle} ${fadeClassname300}`}>성별을 선택해 주세요</Typography>
-        <Typography className={`${FadeStyle} ${fadeClassname500}`}>
-          해당 정보는 인사이트에 활용되며, 공개되지 않아요
-        </Typography>
+        <Typography className={fadeClassName300}>성별을 선택해 주세요</Typography>
+        <Typography className={fadeClassName500}>해당 정보는 인사이트에 활용되며, 공개되지 않아요</Typography>
       </S.Box>
       <RadioSelect items={gneders} name="gender-select" value={gender} onChange={handleChange} />
     </section>

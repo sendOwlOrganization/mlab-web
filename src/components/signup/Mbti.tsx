@@ -23,8 +23,8 @@ interface MbtiProps {
 
 // TODO Typography 세팅 후 설정
 const Mbti = ({ mbti, setMbti }: MbtiProps) => {
-  const { FadeStyle, fadeClassname: fadeClassname300 } = useFade({ useDelay: true, timeout: 300 });
-  const { fadeClassname: fadeClassname500 } = useFade({ useDelay: true, timeout: 500 });
+  const { className: fadeClassname300 } = useFade({ timeout: 300 });
+  const { className: fadeClassname500 } = useFade();
 
   const handleChangeMbti = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.toUpperCase().slice(0, 4);
@@ -34,8 +34,8 @@ const Mbti = ({ mbti, setMbti }: MbtiProps) => {
   return (
     <section>
       <S.Box>
-        <Typography className={`${FadeStyle} ${fadeClassname300}`}>만나서 반가워요 :)</Typography>
-        <Typography className={`${FadeStyle} ${fadeClassname500}`}>본인의 MBTI를 입력해 주세요</Typography>
+        <Typography className={fadeClassname300}>만나서 반가워요 :)</Typography>
+        <Typography className={fadeClassname500}>본인의 MBTI를 입력해 주세요</Typography>
         <TextField
           value={mbti}
           onChange={handleChangeMbti}
