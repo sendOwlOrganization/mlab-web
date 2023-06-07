@@ -15,7 +15,7 @@ const HintBalloon = ({ children, align, location, className, ...props }: HintBal
   return (
     <S.Container className={className} bgColor={props.bgColor}>
       <S.TooltipIcon className={`${TooltipIconPosition} ${align} ${location}`} />
-      <S.TooltipContnet {...props}>{children}</S.TooltipContnet>
+      <S.TooltipContent {...props}>{children}</S.TooltipContent>
     </S.Container>
   );
 };
@@ -31,7 +31,7 @@ const S = {
   TooltipIcon: styled("div")`
     position: absolute;
   `,
-  TooltipContnet: styled("p")<{ bgColor?: string; color?: string }>`
+  TooltipContent: styled("p")<{ bgColor?: string; color?: string }>`
     margin: 0 0 1rem 0;
     min-width: 0.1rem;
     border-radius: 1rem;

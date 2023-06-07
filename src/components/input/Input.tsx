@@ -25,10 +25,10 @@ const S = {
     display: flex;
     flex-direction: row;
     align-items: center;
-    borderraduis: 8px;
+    border-radius: 8px;
     padding: 0.5rem 0.625rem;
   `,
-  // TODO ::placehoder {}
+  // TODO &:placeholder {}
   Input: styled("input")`
     color: ${theme.palette.text.primary};
     background-color: transparent;
