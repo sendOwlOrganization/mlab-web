@@ -14,7 +14,7 @@ export interface HintBalloonProps {
 const HintBalloon = ({ children, align, location, className, ...props }: HintBalloonProps) => {
   return (
     <S.Container className={className} bgColor={props.bgColor}>
-      <S.TooltipIcon className={`${TooltipIconPosition} ${align} ${location}`} />
+      <S.TooltipIcon className={`${C.tooltipIconPosition} ${align} ${location}`} />
       <S.TooltipContent {...props}>{children}</S.TooltipContent>
     </S.Container>
   );
@@ -41,28 +41,30 @@ const S = {
   `
 };
 
-const TooltipIconPosition = css`
-  &.left {
-    left: 15%;
-  }
-  &.center {
-    left: calc(50% - 10px);
-  }
-  &.right {
-    right: 15%;
-  }
-  &.up {
-    border-bottom: 10px solid;
-    border-bottom-color: inherit;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    top: -0.625rem;
-  }
-  &.down {
-    border-top: 10px solid;
-    border-top-color: inherit;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    bottom: 0.4rem;
-  }
-`;
+const C = {
+  tooltipIconPosition: css`
+    &.left {
+      left: 15%;
+    }
+    &.center {
+      left: calc(50% - 10px);
+    }
+    &.right {
+      right: 15%;
+    }
+    &.up {
+      border-bottom: 10px solid;
+      border-bottom-color: inherit;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      top: -0.625rem;
+    }
+    &.down {
+      border-top: 10px solid;
+      border-top-color: inherit;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      bottom: 0.4rem;
+    }
+  `
+};

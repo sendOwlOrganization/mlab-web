@@ -14,20 +14,20 @@ interface WelcomeProps {
 
 const Welcome = ({ nickname, mbti = "INFJ" }: WelcomeProps) => {
   return (
-    <section className={C.Section}>
-      <header className={C.Header}>
+    <section className={C.section}>
+      <header className={C.header}>
         <MlabLogo width={66} />
       </header>
-      <div className={C.Box}>
+      <div className={C.box}>
         <S.CharacterImage src={`/character/${mbti.toLowerCase()}.svg`} />
-        <Typography className={C.TypographyFont}>
+        <Typography className={C.font}>
           <S.Highlight>
             {nickname}
             {mbti.toUpperCase()}
           </S.Highlight>
           님,
         </Typography>
-        <Typography className={C.TypographyFont}>가입을 진심으로 축하드려요🎉</Typography>
+        <Typography className={C.font}>가입을 진심으로 축하드려요🎉</Typography>
       </div>
     </section>
   );
@@ -58,18 +58,18 @@ const S = {
 };
 
 const C = {
-  Section: css`
+  section: css`
     height: 100vh;
     display: flex;
     flex-direction: column;
   `,
-  Header: css`
+  header: css`
     height: 4.375rem;
     display: flex;
     align-items: center;
     justify-content: center;
   `,
-  Box: css`
+  box: css`
     flex-grow: 1;
     height: 100%;
     display: flex;
@@ -77,7 +77,7 @@ const C = {
     justify-content: center;
     align-items: center;
   `,
-  TypographyFont: css`
+  font: css`
     font-weight: bold;
     font-size: 24px;
     margin: 0;

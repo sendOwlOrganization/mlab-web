@@ -13,7 +13,7 @@ import useFade from "@/hooks/useFade";
 import { mbtiDescription, mbtiList, mbtiListString } from "@/mocks/mbti";
 import { theme } from "@/mds/theme";
 
-const mbtiTestLink =
+const MBTI_TEST_LINK =
   "https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC";
 
 interface MbtiProps {
@@ -61,7 +61,7 @@ const Mbti = ({ mbti, setMbti }: MbtiProps) => {
           <S.CharacterImage src={`/character/${mbti.toLowerCase()}.svg`} />
         </S.CharacterImageWrap>
       )}
-      <S.MbtiTestLink href={mbtiTestLink} rel={"noreferrer nofollow"}>
+      <S.MbtiTestLink href={MBTI_TEST_LINK} rel={"noreferrer nofollow"}>
         MBTI 검사 받으러가기
       </S.MbtiTestLink>
     </section>
