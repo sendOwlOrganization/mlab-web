@@ -1,6 +1,6 @@
 import Age from "@/components/signup/Age";
 import type { Meta, StoryObj } from "@storybook/react";
-import { useRef } from "react";
+import { useArgs } from "@storybook/addons";
 
 const meta: Meta<typeof Age> = {
   title: "components/signup/Age",
@@ -11,11 +11,15 @@ export default meta;
 type Story = StoryObj<typeof Age>;
 
 const AgeWithHooks = () => {
-  const ageRef = useRef<number>();
+  const [args, updateArgs] = useArgs();
 
-  return <Age updateAge={(age: number) => (ageRef.current = age)} />;
+  const handleUpdateAge = (age: number) => {
+    updateArgs({ ...args, age });
+  };
+
+  return <Age updateAge={handleUpdateAge} />;
 };
 
 export const Default: Story = {
-  render: () => <AgeWithHooks />
+  render: AgeWithHooks
 };

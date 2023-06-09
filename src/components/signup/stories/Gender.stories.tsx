@@ -1,6 +1,6 @@
 import Gender from "@/components/signup/Gender";
 import type { Meta, StoryObj } from "@storybook/react";
-import { useRef } from "react";
+import { useArgs } from "@storybook/addons";
 
 const meta: Meta<typeof Gender> = {
   title: "components/signup/Gender",
@@ -11,11 +11,15 @@ export default meta;
 type Story = StoryObj<typeof Gender>;
 
 const GenderWithHooks = () => {
-  const GenderRef = useRef<string>();
+  const [args, updateArgs] = useArgs();
 
-  return <Gender updateGender={(Gender: string) => (GenderRef.current = Gender)} />;
+  const handleUpdateGender = (gender: string) => {
+    updateArgs({ ...args, gender });
+  };
+
+  return <Gender updateGender={handleUpdateGender} />;
 };
 
 export const Default: Story = {
-  render: () => <GenderWithHooks />
+  render: GenderWithHooks
 };
