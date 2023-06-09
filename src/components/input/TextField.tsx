@@ -1,4 +1,4 @@
-import { ComponentProps, useState } from "react";
+import { ComponentProps } from "react";
 import { styled } from "@linaria/react";
 import { theme } from "@/mds/theme";
 
@@ -19,21 +19,14 @@ export interface TextFieldProps extends ComponentProps<"input"> {
 }
 
 const TextField = ({ label, id, helperText, onClear, variant = "default", ...props }: TextFieldProps) => {
-  const [isFocused, setIsFocused] = useState(false);
-
-  const handleClear = () => {
-    onClear && onClear();
-    isFocused && setIsFocused(false);
-  };
-
   return (
     <S.FlexColumn>
       <S.Label htmlFor={id} required={props.required ?? false} variant={variant} disabled={props.disabled ?? false}>
         {label}
       </S.Label>
-      <S.InputWrap>
-        <S.Input id={id} {...props} onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)} />
-        <S.DeleteIcon color={theme.palette.colors.gray[200]} onClick={handleClear} isFocused={isFocused} />
+      <S.InputWrap variant={variant} disabled={props.disabled ?? false}>
+        <S.Input id={id} {...props} />
+        <S.DeleteIcon color={theme.palette.colors.gray[200]} onClick={onClear} />
       </S.InputWrap>
       {/* TODO Typography 세팅 후 설정 */}
       {helperText && <Typography>{helperText}</Typography>}
@@ -48,9 +41,19 @@ const S = {
     display: flex;
     flex-direction: column;
   `,
-  InputWrap: styled("div")`
+  InputWrap: styled("div")<{ disabled: boolean | undefined; variant: TextFieldVariant }>`
     position: relative;
     display: flex;
+
+    &:focus-within {
+      & > input {
+        border-bottom-color: ${({ disabled, variant }) => getInputBorderColor(disabled ? "disabled" : variant)};
+      }
+      & > svg {
+        opacity: 1;
+        cursor: pointer;
+      }
+    }
   `,
   Input: styled("input")`
     all: unset;
@@ -63,10 +66,6 @@ const S = {
     ::placeholder {
       color: ${theme.palette.colors.gray[300]};
       font-weight: normal;
-    }
-
-    &:focus {
-      border-bottom-color: red;
     }
 
     &:disabled {
@@ -82,9 +81,7 @@ const S = {
       color: ${theme.palette.colors.red[500]};
     }
   `,
-  DeleteIcon: styled(DeleteIcon)<{ isFocused: boolean }>`
-    opacity: ${({ isFocused }) => (isFocused ? 1 : 0)};
-    cursor: ${({ isFocused }) => (isFocused ? "pointer" : "default")};
+  DeleteIcon: styled(DeleteIcon)`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -97,6 +94,21 @@ const S = {
       }
     }
   `
+};
+
+const getInputBorderColor = (variant: TextFieldVariant | "disabled") => {
+  switch (variant) {
+    case "default":
+      return theme.palette.colors.red[500];
+    case "error":
+      return theme.palette.colors.red[500];
+    case "warning":
+      return theme.palette.colors.orange[500];
+    case "disabled":
+      return theme.palette.colors.gray[300];
+    default:
+      return theme.palette.colors.red[500];
+  }
 };
 
 const getLabelColor = (variant: TextFieldVariant | "disabled") => {
