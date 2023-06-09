@@ -1,12 +1,12 @@
 import { styled } from "@linaria/react";
 import { theme } from "@/mds/theme";
+import { useId } from "react";
 
 // icons
 import RadioButtonIcon from "@/components/icons/RadioButtonIcon";
 
 export interface RadioSelectItem<T> {
   value: T;
-  key?: string;
   text: string | number;
 }
 
@@ -21,20 +21,19 @@ const RadioSelect = <T,>({ value, items, name, onChange }: RadioSelectProps<T>) 
   return (
     <S.RadioList>
       {items.map((item) => {
-        const itemKey = item.key ?? String(item.text);
-        return (
-          <S.RadioItem key={itemKey} onClick={() => onChange && onChange(item)}>
-            <RadioButtonIcon
-              color={
-                itemKey === (value?.key ?? String(value?.text))
-                  ? theme.palette.colors.pink[500]
-                  : theme.palette.colors.gray[200]
-              }
-            />
-            <S.Radio type="radio" name={name} id={itemKey} />
-            <S.Label htmlFor={itemKey}>{item.text}</S.Label>
-          </S.RadioItem>
-        );
+        const RadioItem = () => {
+          const itemKey = useId();
+          return (
+            <S.RadioItem key={itemKey} onClick={() => onChange && onChange(item)}>
+              <RadioButtonIcon
+                color={item.value === value?.value ? theme.palette.colors.pink[500] : theme.palette.colors.gray[200]}
+              />
+              <S.Radio type="radio" name={name} id={itemKey} />
+              <S.Label htmlFor={itemKey}>{item.text}</S.Label>
+            </S.RadioItem>
+          );
+        };
+        return RadioItem();
       })}
     </S.RadioList>
   );
