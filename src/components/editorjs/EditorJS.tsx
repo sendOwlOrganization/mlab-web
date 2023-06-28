@@ -60,6 +60,10 @@ export default EditorJS;
 
 const C = {
   editorJS: css`
+    & .codex-editor-overlay {
+      opacity: 0;
+    }
+
     padding-bottom: 2.5rem;
 
     .ce-header {
