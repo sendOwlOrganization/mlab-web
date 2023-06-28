@@ -1,3 +1,4 @@
+import { theme } from "@/mds/theme";
 import { css } from "@linaria/core";
 import { styled } from "@linaria/react";
 import { PropsWithChildren, ReactNode } from "react";
@@ -27,6 +28,7 @@ const C = {
     gap: 8px;
     box-sizing: border-box;
     padding: 0 8px;
+    background-color: ${theme.palette.background};
   `
 };
 
