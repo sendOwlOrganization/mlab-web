@@ -160,6 +160,10 @@ const C = {
             background-color: ${theme.palette.colors.pink[600]};
             border-color: ${theme.palette.colors.pink[600]};
           }
+
+          svg {
+            border-radius: 50%;
+          }
         }
       }
     }
